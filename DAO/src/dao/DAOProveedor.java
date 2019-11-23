@@ -18,7 +18,7 @@ import java.util.List;
 
 
 public class DAOProveedor extends conexion{
-public void Proveedor(Proveedor PR) throws Exception {
+public void registrar(Proveedor PR) throws Exception {
         String sql = "INSERT INTO Proveedor( razonSocial_PR, nombre_PR, ruc_PR, direccion_PR, telefono_PR, estado_PR) "
                 + " VALUES ( '" + PR.getRazonSocial_PR()+ "', '" + PR.getNombre_PR()
                 + "', '" + PR.getRuc_PR()+ "', '" + PR.getDireccion_PR()+ "', '" + PR.getTelefono_PR()+ "', "  
