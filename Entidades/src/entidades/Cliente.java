@@ -12,6 +12,7 @@ package entidades;
 public class Cliente{
     private int codigo_C;
     private int codigo_TC;    
+    private String nroDocumento_C;
     private String nombre_C;
     private String apellido_C;
     private String direccion_C;
@@ -34,7 +35,15 @@ public class Cliente{
         this.codigo_TC = codigo_TC;
     }
 
-    public String getNombre_C() {
+    public String getNroDocumento_C() {
+        return nroDocumento_C;
+    }
+
+    public void setNroDocumento_C(String nroDocumento_C) {
+        this.nroDocumento_C = nroDocumento_C;
+    }
+    
+        public String getNombre_C() {
         return nombre_C;
     }
 
