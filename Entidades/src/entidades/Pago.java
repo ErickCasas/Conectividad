@@ -54,7 +54,5 @@ public class Pago{
 
     public void setEstado_COMP(Boolean estado_COMP) {
         this.estado_COMP = estado_COMP;
-    }
-
-    
+    } 
 }

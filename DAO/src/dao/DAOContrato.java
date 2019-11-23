@@ -8,8 +8,8 @@ import java.util.List;
 public class DAOContrato extends conexion{
     public void registrar(Contrato c) throws Exception {
         String sql = "INSERT INTO contrato( codigo_CONT, codigo_C, codigo_S, fechaInicio_CONT, fechaFin_CONT, tipoContrato_CONT, estado_CONT) "
-                + " VALUES ( '" + c.getCodigo_C()+ "', '" + c.getCodigo_S()
-                + "', '" + c.getFechaInicio_CONT()+ "', '" + c.getFechaFin_CONT()+ "','" + c.getTipoContrato_CONT()+ "', "  
+                + " VALUES ( " + c.getCodigo_C()+ ", " + c.getCodigo_S()
+                + ", '" + c.getFechaInicio_CONT()+ "', '" + c.getFechaFin_CONT()+ "','" + c.getTipoContrato_CONT()+ "', "  
                 + (c.isEstado_CONT()== true ? "1" : "0") + ")";
         try {
             this.conectar(true);
@@ -27,7 +27,7 @@ public class DAOContrato extends conexion{
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT C.codigo_C, C.codigo_S, C.fechaInicio_CONT, C.fechaFin_CONT "
+            rs = this.ejecutarOrdenDatos("SELECT C.codigo_CONT, C.codigo_C, C.codigo_S, C.fechaInicio_CONT, C.fechaFin_CONT "
                     + " FROM contrato C "
                     + "ORDER BY C.codigo_C");
             contratos = new ArrayList<>();
@@ -78,8 +78,8 @@ public class DAOContrato extends conexion{
     
     public void modificar(Contrato c) throws Exception {
         String sql = "UPDATE cliente SET "
-                + "codigo_C='" + c.getCodigo_C() + "', "
-                + "codigo_S='" + c.getCodigo_S() + "', "
+                + "codigo_C=" + c.getCodigo_C() + ", "
+                + "codigo_S=" + c.getCodigo_S() + ", "
                 + "fechaInicio_CONT='" + c.getFechaInicio_CONT()+ "', "
                 + "fechaFin_CONT='" + c.getFechaFin_CONT()+ "', "
                 + "tipoContrato_CONT='" + c.getTipoContrato_CONT()+ "', "
@@ -122,6 +122,7 @@ public class DAOContrato extends conexion{
             contratos = new ArrayList<>();
             while (rs.next() == true){
                 c = new Contrato();
+                c.setCodigo_CONT(rs.getInt("codigo_CONT"));
                 c.setCodigo_C(rs.getInt("codigo_C"));
                 c.setCodigo_S(rs.getInt("codigo_S"));
                 c.setFechaInicio_CONT(rs.getString("fechaInicio_CONT"));

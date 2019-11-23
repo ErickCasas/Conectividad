@@ -73,6 +73,4 @@ public class Mes{
     public void setCosto_M(double costo_M) {
         this.costo_M = costo_M;
     }
-    
-    
 }

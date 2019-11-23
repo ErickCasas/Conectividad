@@ -7,9 +7,9 @@ import java.util.List;
 
 public class DAOComprobante extends conexion{
     public void registrar(Comprobante c) throws Exception {
-        String sql = "INSERT INTO comprobante( codigo_COMP, codigo_CONT, codigo_TCO , monto_COMP, estado_COMP) "
-                + " VALUES ( '" + c.getCodigo_CONT()+ "', '" + c.getCodigo_TCO()
-                + "','" + c.getMonto_COMP()+ "','" + (c.isEstado_COMP()== true ? "1" : "0") + ")";
+        String sql = "INSERT INTO comprobante( codigo_CONT, codigo_TCO , monto_COMP, estado_COMP) "
+                + " VALUES ( " + c.getCodigo_CONT()+ ", " + c.getCodigo_TCO()
+                + "," + c.getMonto_COMP()+ ",'" + (c.isEstado_COMP()== true ? "1" : "0") + ")";
         try {
             this.conectar(true);
             this.ejecutarOrden(sql);
@@ -70,13 +70,12 @@ public class DAOComprobante extends conexion{
         }
         return c;
     }
-    
-    
+     
     public void modificar(Comprobante c) throws Exception {
         String sql = "UPDATE comprobante SET "
-                + "codigo_CONT='" + c.getCodigo_CONT()+ "', "
-                + "codigo_TCO='" + c.getCodigo_TCO()+ "', "
-                + "monto_COMP='" + c.getMonto_COMP()+ "', "
+                + "codigo_CONT=" + c.getCodigo_CONT()+ ", "
+                + "codigo_TCO=" + c.getCodigo_TCO()+ ", "
+                + "monto_COMP='" + c.getMonto_COMP()+ ", "
                 + "estado_COMP =" + (c.isEstado_COMP()== true ? "1" : "0") + " "
                 + " WHERE codigo_COMP=" + c.getCodigo_COMP()+ ";";
         try {
