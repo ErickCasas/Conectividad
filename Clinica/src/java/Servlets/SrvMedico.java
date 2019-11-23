@@ -124,7 +124,7 @@ public class SrvMedico extends HttpServlet {
 
     }
 
-    private void modificar(HttpServletRequest request, HttpServletResponse response) {
+   private void modificar(HttpServletRequest request, HttpServletResponse response) {
         DAOComprobante dao;
         Medico me;
         me = this.recuperarMedico(request);
