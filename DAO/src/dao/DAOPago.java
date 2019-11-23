@@ -131,6 +131,7 @@ public class DAOPago extends conexion{
             Pago = new ArrayList<>();
             while (rs.next() == true){
                 P = new Pago();
+                
                P.setCodigo_TP(rs.getInt("codigo_TP"));
                 P.setCodigo_COMP(rs.getInt("codigo_COMP"));
                 P.setFecha_COMP(rs.getString("fecha_COMP"));

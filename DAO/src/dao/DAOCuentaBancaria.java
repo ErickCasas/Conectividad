@@ -145,9 +145,10 @@ public class DAOCuentaBancaria extends conexion{
             
             CuentaBancaria = new ArrayList<>();
             while (rs.next() == true){
+                CB.setCodigo_PR(rs.getInt("codigo_B"));
                 CB.setCodigo_PR(rs.getInt("codigo_PR"));
                 CB.setCodigo_P(rs.getInt("codigo_P"));
-                CB.setNumeroCuenta_B(rs.getString("numeroCuenta_B"));
+                 CB.setCodigo_PR(rs.getInt("codigo_PR"));
                 CB.setTipoCuenta_B(rs.getString("tipoCuenta_B"));
                 CB.setFechaVencimiento_B(rs.getString("fechaVencimiento_B"));
                 CB.setClave_B(rs.getString("clave_B"));
