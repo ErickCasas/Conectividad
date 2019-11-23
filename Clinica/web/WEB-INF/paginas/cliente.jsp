@@ -9,8 +9,7 @@
     </head>
     <body>
         <h1>Lista de Clientes</h1>
-        <a href="cliente?accion=crear">Nuevo Cliente</a>
-        
+        <a href="cliente?accion=crear">Nuevo Cliente</a>       
         <a href="cliente?accion=crearBuscar">Buscar Cliente</a>
       
         <table>
