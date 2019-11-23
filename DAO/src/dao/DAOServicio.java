@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import accesodatos.conexion;
@@ -14,8 +9,8 @@ import java.util.List;
 public class DAOServicio extends conexion{
     public void registrar(Servicio S) throws Exception {
         String sql = "INSERT INTO cliente( codigo_TS, codigo_PR, nombre_S, descripcion_S, precio_S, estado_S) "
-                + " VALUES ( '" + S.getCodigo_TS() + "', '" + S.getCodigo_PR()
-                + "', '" + S.getDescripcion_S() + "', '" + S.getPrecio_S() + "', "  
+                + " VALUES ( " + S.getCodigo_TS() + ", " + S.getCodigo_PR()
+                + ", '" + S.getDescripcion_S() + "', '" + S.getPrecio_S() + "', "  
                 + (S.isEstado()== true ? "1" : "0") + ")";
         try {
             this.conectar(true);
@@ -33,12 +28,13 @@ public class DAOServicio extends conexion{
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT S.codigo_TS, S.codigo_PR, S.nombre_S, S.descripcion_S, S.precio_S, S.estado_S "
+            rs = this.ejecutarOrdenDatos("SELECT S.codigo_S, S.codigo_TS, S.codigo_PR, S.nombre_S, S.descripcion_S, S.precio_S, S.estado_S "
                     + " FROM servicio S "
                     + "ORDER BY S.nombre_S");
             servicios = new ArrayList<>();
             while (rs.next() == true) {
                 S = new Servicio();
+                S.setCodigo_S(rs.getInt("codigo_S"));
                 S.setCodigo_TS(rs.getInt("codigo_TS"));
                 S.setCodigo_PR(rs.getInt("codigo_PR"));
                 S.setNombre_S(rs.getString("nombre_S"));
@@ -66,6 +62,7 @@ public class DAOServicio extends conexion{
                     + " WHERE codigo_S = " + id + ";");
             while (rs.next() == true) {
                 S = new Servicio();
+                S.setCodigo_S(rs.getInt("codigo_S"));
                 S.setCodigo_TS(rs.getInt("codigo_TS"));
                 S.setCodigo_PR(rs.getInt("codigo_PR"));
                 S.setNombre_S(rs.getString("nombre_S"));
@@ -82,8 +79,8 @@ public class DAOServicio extends conexion{
     
     public void modificar(Servicio S) throws Exception {
         String sql = "UPDATE servicio SET "
-                + "codigo_TS='" + S.getCodigo_TS() + "', "
-                + "codigo_PR='" + S.getCodigo_PR() + "', "
+                + "codigo_TS=" + S.getCodigo_TS() + ", "
+                + "codigo_PR=" + S.getCodigo_PR() + ", "
                 + "nombre_S'" + S.getNombre_S() + "', "
                 + "descripcion_S='" + S.getDescripcion_S() + "', "
                 + "precio_S='" + S.getPrecio_S() + "', "
@@ -126,14 +123,14 @@ public class DAOServicio extends conexion{
             servicios = new ArrayList<>();
             while (rs.next() == true){
                 S = new Servicio();
+                S.setCodigo_S(rs.getInt("codigo_S"));
                 S.setCodigo_TS(rs.getInt("codigo_TS"));
                 S.setCodigo_PR(rs.getInt("codigo_PR"));
                 S.setNombre_S(rs.getString("nombre_S"));
                 S.setDescripcion_S(rs.getString("descripcion_S"));
                 S.setPrecio_S(rs.getString("precio_S"));
                 S.setEstado(rs.getBoolean("estado_S"));
-                servicios.add(S);
-                
+                servicios.add(S);               
             }
             rs.close();
             this.cerrar(true);

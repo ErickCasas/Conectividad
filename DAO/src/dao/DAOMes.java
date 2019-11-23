@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
-
 import accesodatos.conexion;
 import entidades.Mes;
 import java.sql.ResultSet;
@@ -17,7 +11,7 @@ public class DAOMes extends conexion{
                 + "observacion_M,costo_M) "
                 + " VALUES ( " + m.getCodigo_CONT()+ ", '" + m.getIntervaloT_M()
                 + "', '" + m.getFechaInicio_M() + "', '" + m.getFechaFin_M() 
-                + "', '" + (m.getVigencia_M()== true ? "1" : "0") 
+                + "', " + (m.getVigencia_M()== true ? "1" : "0") 
                 + "', '" + m.getObservacion_M()+ "', " + m.getCosto_M() + ")";
         try {
             this.conectar(true);
@@ -35,13 +29,14 @@ public class DAOMes extends conexion{
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT codigo_CONT, intervaloT_M, fechaInicio_M, fechaFin_M, vigencia_M, "
+            rs = this.ejecutarOrdenDatos("SELECT codigo_M, codigo_CONT, intervaloT_M, fechaInicio_M, fechaFin_M, vigencia_M, "
                     + "observacion_M, costo_M "
                     + " FROM mes M "
                     + "ORDER BY M.fechaInicio_M");
             meses = new ArrayList<>();
             while (rs.next() == true) {
                 m = new Mes();
+                m.setCodigo_M(rs.getInt("codigo_M"));
                 m.setCodigo_CONT(rs.getInt("codigo_CONT"));
                 m.setIntervaloT_M(rs.getString("intervaloT_M"));
                 m.setFechaInicio_M(rs.getString("fechaInicio_M"));
@@ -70,6 +65,7 @@ public class DAOMes extends conexion{
                     + " WHERE codigo_M = " + id + ";");
             while (rs.next() == true) {
                 m = new Mes();
+                m.setCodigo_M(rs.getInt("codigo_M"));
                 m.setCodigo_CONT(rs.getInt("codigo_CONT"));
                 m.setIntervaloT_M(rs.getString("intervaloT_M"));
                 m.setFechaInicio_M(rs.getString("fechaInicio_M"));
@@ -84,8 +80,7 @@ public class DAOMes extends conexion{
         }
         return m;
     }
-    
-    
+      
     public void modificar(Mes m) throws Exception {
         String sql = "UPDATE mes SET "
                 + "codigo_CONT=" + m.getCodigo_CONT()+ " , "
@@ -118,5 +113,33 @@ public class DAOMes extends conexion{
             this.cerrar(false);
             throw e;
         }
+    }
+    
+    public List<Mes> buscarNombre(String mes) throws Exception{
+        List<Mes> meses = null;
+        Mes m = null;
+        ResultSet rs = null;
+        
+        try{
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos("SELECT * "
+                    + "FROM mes WHERE codigo_M LIKE '%" + mes + "%'");
+            
+            meses = new ArrayList<>();
+            while (rs.next() == true){
+                m = new Mes();
+                m.setCodigo_M(rs.getInt("codigo_M"));
+                m.setCodigo_CONT(rs.getInt("codigo_CONT"));
+                m.setIntervaloT_M(rs.getString("intervaloT_M"));
+                m.setFechaInicio_M(rs.getString("fechaInicio_M"));
+                meses.add(m);             
+            }
+            rs.close();
+            this.cerrar(true);
+        } catch(Exception e){
+            this.cerrar(false);
+            throw  e;
+        }
+        return meses;
     }
 }

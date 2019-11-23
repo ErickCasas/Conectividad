@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import accesodatos.conexion;
@@ -32,12 +27,13 @@ public class DAODetalleMesPagado extends conexion{
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT codigo_M, codigo_P, monto_DMP "
+            rs = this.ejecutarOrdenDatos("SELECT codigo_DMP, codigo_M, codigo_P, monto_DMP "
                     + " FROM detallemespagado DM "
                     + "ORDER BY DM.monto_DMP");
             meses = new ArrayList<>();
             while (rs.next() == true) {
                 Dm = new DetalleMesPagado();
+                Dm.setCodigo_DMP(rs.getInt("codigo_DMP"));
                 Dm.setCodigo_M(rs.getInt("codigo_M"));
                 Dm.setCodigo_P(rs.getInt("codigo_CONT"));
                 Dm.setMonto_DMP(rs.getDouble("monto_DMP"));
@@ -62,6 +58,7 @@ public class DAODetalleMesPagado extends conexion{
                     + " WHERE codigo_DMP = " + id + ";");
             while (rs.next() == true) {
                 Dm = new DetalleMesPagado();
+                Dm.setCodigo_DMP(rs.getInt("codigo_DMP"));
                 Dm.setCodigo_M(rs.getInt("codigo_M"));
                 Dm.setCodigo_P(rs.getInt("codigo_P"));
                 Dm.setMonto_DMP(rs.getDouble("monto_DMP"));
@@ -76,9 +73,9 @@ public class DAODetalleMesPagado extends conexion{
     
     public void modificar(DetalleMesPagado Dm) throws Exception {
         String sql = "UPDATE detallemespagado SET "
-                + "codigo_CONT=" + Dm.getCodigo_M()+ " , "
-                + "codigo_CONT=" + Dm.getCodigo_P()+ " , "
-                + "codigo_CONT=" + Dm.getMonto_DMP()+ " ";
+                + "codigo_M=" + Dm.getCodigo_M()+ " , "
+                + "codigo_P=" + Dm.getCodigo_P()+ " , "
+                + "codigo_DMP=" + Dm.getMonto_DMP()+ " ";
         try {
             this.conectar(true);
             this.ejecutarOrden(sql);
