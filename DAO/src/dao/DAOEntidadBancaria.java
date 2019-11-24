@@ -68,7 +68,7 @@ public class DAOEntidadBancaria extends conexion{
             this.conectar(false);
             rs = this.ejecutarOrdenDatos("SELECT * "
                     + " FROM EntidadBancaria "
-                    + " WHERE codigo_E = " + id + ";");
+                    + " WHERE ruc_E = " + id + ";");
             while (rs.next() == true) {
                 EB = new EntidadBancaria();
                 EB.setNombre_E(rs.getString("nombre_E"));
@@ -89,7 +89,7 @@ public class DAOEntidadBancaria extends conexion{
                 + "dreccion_E='" + EB.getDireccion_E()+ "', "
                 + "ruc_E='" + EB.getRuc_E()+ "', "
            
-                + " WHERE codigo_E=" + EB.getCodigo_E()+ ";";
+                + " WHERE ruc_E=" + EB.getRuc_E()+ ";";
         try {
             this.conectar(true);
             this.ejecutarOrden(sql);
@@ -103,7 +103,7 @@ public class DAOEntidadBancaria extends conexion{
         
         public void eliminar(int id) throws Exception {
         String sql = "DELETE FROM EntidadBancaria "
-                + "WHERE codigo_E=" + id + ";";
+                + "WHERE ruc_E=" + id + ";";
         System.out.println("sql eliminar--> " + sql);
         try {
             this.conectar(true);
@@ -116,7 +116,7 @@ public class DAOEntidadBancaria extends conexion{
     }
         
       
-        public List<EntidadBancaria> buscarNombre(String nombre) throws Exception{
+        public List<EntidadBancaria> buscarRucEntidadBancaria(String ruc_E) throws Exception{
         List<EntidadBancaria> EntidadBancaria = null;
         EntidadBancaria EB = null;
         ResultSet rs = null;
@@ -124,7 +124,7 @@ public class DAOEntidadBancaria extends conexion{
         try{
             this.conectar(false);
             rs = this.ejecutarOrdenDatos("SELECT * "
-                    + "FROM EntidadBancaria WHERE nombre_E LIKE '%" + nombre + "%'");
+                    + "FROM EntidadBancaria WHERE ruc_E LIKE '%" + ruc_E + "%'");
             
             EntidadBancaria = new ArrayList<>();
             while (rs.next() == true){
