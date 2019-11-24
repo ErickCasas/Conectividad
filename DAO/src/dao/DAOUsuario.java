@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
-
 import accesodatos.conexion;
 import entidades.Usuario;
 import java.sql.ResultSet;
@@ -32,12 +26,13 @@ public class DAOUsuario extends conexion{
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT codigo_TU, codigo_C, codigo_P, nombre_U, password_U, vigencia_U "
+            rs = this.ejecutarOrdenDatos("SELECT codigo_U, codigo_TU, codigo_C, codigo_P, nombre_U, password_U, vigencia_U "
                     + " FROM usuario U "
                     + "ORDER BY U.nombre_U");
             usuario = new ArrayList<>();
             while (rs.next() == true) {
                 U = new Usuario();
+                U.setCodigo_U(rs.getInt("codigo_U"));
                 U.setCodigo_TU(rs.getInt("codigo_TU"));
                 U.setCodigo_C(rs.getInt("codigo_C"));
                 U.setCodigo_P(rs.getInt("codigo_P"));
@@ -65,6 +60,7 @@ public class DAOUsuario extends conexion{
                     + " WHERE codigo_U = " + id + ";");
             while (rs.next() == true) {
                 U = new Usuario();
+                U.setCodigo_U(rs.getInt("codigo_U"));
                 U.setCodigo_TU(rs.getInt("codigo_TU"));
                 U.setCodigo_C(rs.getInt("codigo_C"));
                 U.setCodigo_P(rs.getInt("codigo_P"));
@@ -78,15 +74,14 @@ public class DAOUsuario extends conexion{
         }
         return U;
     }
-    
-    
+       
     public void modificar(Usuario U) throws Exception {
         String sql = "UPDATE usuario SET "
                 + "codigo_TU=" + U.getCodigo_TU()+ " , "
                 + "codigo_C=" + U.getCodigo_C()+ " , "
                 + "codigo_P=" + U.getCodigo_P()+ " , "
-                + "nombre_U=" + U.getNombre_U()+ " , "
-                + "password_U=" + U.getPassword_U()+ " , "
+                + "nombre_U='" + U.getNombre_U()+ "' , "
+                + "password_U='" + U.getPassword_U()+ "' , "
                 + "vigencia_U=" + U.isVigencia_U()+ ";";
         try {
             this.conectar(true);
@@ -110,5 +105,37 @@ public class DAOUsuario extends conexion{
             this.cerrar(false);
             throw e;
         }
+    }
+    
+    public List<Usuario> buscarNombre(String nombre) throws Exception{
+        List<Usuario> usuarios = null;
+        Usuario u = null;
+        ResultSet rs = null;
+        
+        try{
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos("SELECT * "
+                    + "FROM usuario WHERE codigo_U LIKE '%" + nombre + "%'");
+            
+            usuarios = new ArrayList<>();
+            while (rs.next() == true){
+                u = new Usuario();
+                u.setCodigo_U(rs.getInt("codigo_U"));
+                u.setCodigo_TU(rs.getInt("codigo_TU"));
+                u.setCodigo_C(rs.getInt("codigo_C"));
+                u.setCodigo_P(rs.getInt("codigo_P"));
+                u.setNombre_U(rs.getString("nombre_U"));
+                u.setPassword_U(rs.getString("password_U"));
+                u.setVigencia_U(rs.getBoolean("vigencia_U"));
+                usuarios.add(u);
+                
+            }
+            rs.close();
+            this.cerrar(true);
+        } catch(Exception e){
+            this.cerrar(false);
+            throw  e;
+        }
+        return usuarios;
     }
 }

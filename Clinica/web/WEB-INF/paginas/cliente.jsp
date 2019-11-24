@@ -1,5 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -9,14 +8,13 @@
     </head>
     <body>
         <h1>Lista de Clientes</h1>
-        <a href="cliente?accion=crear">Nuevo Cliente</a>
-        
+        <a href="cliente?accion=crear">Nuevo Cliente</a>       
         <a href="cliente?accion=crearBuscar">Buscar Cliente</a>
       
         <table>
             <tr>
                 <td>N°</td>
-                <td>Tipo</td>
+                <td>Codigo Tipo Cliente</td>
                 <td>Nro Documento</td>
                 <td>Nombre</td>
                 <td>Apellidos</td>     

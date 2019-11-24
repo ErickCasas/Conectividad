@@ -1,7 +1,12 @@
-package Servlets;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-import dao.DAOComprobante;
-import entidades.Cliente;
+
+import dao.DAOServicio;
+import entidades.Servicio;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -11,9 +16,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "SrvMascota", urlPatterns = {"/medico"})
-public class SrvMedico extends HttpServlet {
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+/**
+ *
+ * @author Lorena
+ */
+@WebServlet(urlPatterns = {"/srvServicio"})
+public class srvServicio extends HttpServlet {
+
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String accion = request.getParameter("accion");
         switch(accion){
@@ -40,9 +50,10 @@ public class SrvMedico extends HttpServlet {
             case "buscar": this.buscar(request, response); 
                             break;
         }    
-    }
     
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+   }
+
+   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -80,141 +91,147 @@ public class SrvMedico extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
     private void listar(HttpServletRequest request, HttpServletResponse response) {
-        DAOComprobante dao = new DAOComprobante();
-        List<Medico> medicos = null;
+        DAOServicio dao = new DAOServicio();
+        List<Servicio> Servicio = null;
               
         try {
-            medicos = dao.listar();
-            request.setAttribute("med", medicos);
+            Servicio = dao.listar();
+            request.setAttribute("S", Servicio);
             this.getServletConfig().getServletContext().
-                    getRequestDispatcher("/WEB-INF/paginas/medico.jsp").
+                    getRequestDispatcher("/WEB-INF/paginas/servicio.jsp").
                     forward(request, response);
         } catch(Exception e){
             System.out.println("Error" + e.getMessage());
-            request.setAttribute("Error", "No se pudo listar las mascotas");
+            request.setAttribute("Error", "No se pudo listar los servicios");
         }
     }
+    
 
     private void presentarFormulario(HttpServletRequest request, HttpServletResponse response) {
         try {
             this.getServletConfig().getServletContext().
-                    getRequestDispatcher("/WEB-INF/paginas/mediconueva.jsp").
+                    getRequestDispatcher("/WEB-INF/paginas/nuevoServicio.jsp").
                     forward(request, response);
         } catch(Exception e){
             request.setAttribute("Error", "No se pudo mostrar el formulario");
         }
     }
-
+    
+    
     private void presentarFormularioEditar(HttpServletRequest request, HttpServletResponse response) {
-        DAOComprobante dao;
-        Medico me;
+        DAOServicio dao;
+        Servicio S;
         try {
-            dao = new DAOComprobante();
+            dao = new DAOServicio();
             int id = Integer.parseInt(request.getParameter("id"));
-            me = dao.leer(id);
-            request.setAttribute("medico", me);
-            this.getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/paginas/editarmedico.jsp").forward(request, response);
+            S = dao.leer(id);
+            request.setAttribute("Servicio", S);
+            this.getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/paginas/editarServicio.jsp").forward(request, response);
 
         } catch (Exception e) {
             System.out.println("Error" + e.getMessage());
-            request.setAttribute("error", "no se pudo listar las mascotas");
+            request.setAttribute("error", "no se pudo listar los servicios");
         }
 
     }
-
-   private void modificar(HttpServletRequest request, HttpServletResponse response) {
-        DAOComprobante dao;
-        Medico me;
-        me = this.recuperarMedico(request);
-        dao = new DAOComprobante();
+    
+    
+    private void modificar(HttpServletRequest request, HttpServletResponse response) {
+        DAOServicio dao;
+        Servicio S;
+        S = this.recuperarServicio(request);
+        dao = new DAOServicio();
         try {
             int id = Integer.parseInt(request.getParameter("id"));
-            me.setCodigo(id);
-            dao.modificar(me);
-            response.sendRedirect("medico?accion=listar");
+            S.setCodigo_S(id);
+            dao.modificar(S);
+            response.sendRedirect("servicio?accion=listar");
         } catch (Exception e) {
             request.setAttribute("msje", "no se pudo modificar");
-            request.setAttribute("medico", me);
+            request.setAttribute("servicio", S);
             this.presentarFormulario(request, response);
         }
     }
-
+    
+    
     private void registrar(HttpServletRequest request, HttpServletResponse response) {
-        DAOComprobante dao;
-        Medico me;
+        DAOServicio dao;
+        Servicio S;
         
-        me = this.recuperarMedico(request);
-        dao = new DAOComprobante();
+        S = this.recuperarServicio(request);
+        dao = new DAOServicio();
         try {
-            dao.registrar(me);
-            response.sendRedirect("medico?accion=listar");
+            dao.registrar(S);
+            response.sendRedirect("Servicio?accion=listar");
         }catch(Exception e){
             request.setAttribute("msje", "No se pudo registrar.");
-            request.setAttribute("medico", me);
+            request.setAttribute("Servicio", S);
             
             this.presentarFormulario(request, response);
         }   
     }
-
-    private void eliminar(HttpServletRequest request, HttpServletResponse response) {
-        DAOComprobante dao;
+    
+     private void eliminar(HttpServletRequest request, HttpServletResponse response) {
+        DAOServicio dao;
         try {
             int id = Integer.parseInt(request.getParameter("id"));
-            dao = new DAOComprobante();
+            dao = new DAOServicio();
             dao.eliminar(id);
-            response.sendRedirect("medico?accion=listar");
+            response.sendRedirect("Servicio?accion=listar");
         } catch (Exception e) {
             request.setAttribute("msje", "no se pudo Eliminar");
             this.presentarFormulario(request, response);
         }
     }
-
-    private void crearBuscar(HttpServletRequest request, HttpServletResponse response) {
+    
+     private void crearBuscar(HttpServletRequest request, HttpServletResponse response) {
         try {
             this.getServletConfig().getServletContext().
-            getRequestDispatcher("/WEB-INF/paginas/buscarMedico.jsp").
+            getRequestDispatcher("/WEB-INF/paginas/buscarServicio.jsp").
             forward(request, response);
                          
         } catch(Exception e){
-            request.setAttribute("Error", "No se pudo mostrar la categoria");
+            request.setAttribute("Error", "No se pudo mostrar el Servicio");
         }
     }
-
-    private void buscar(HttpServletRequest request, HttpServletResponse response) {
-        DAOComprobante dao = new DAOComprobante();
-        List<Medico> medicos = null;
+     
+     
+     private void buscar(HttpServletRequest request, HttpServletResponse response) {
+        DAOServicio dao = new DAOServicio();
+        List<Servicio> Servicio = null;
         String nombre;
         
-        request.setAttribute("nombreMe", request.getParameter("txtBuscar"));
-        nombre = String.valueOf(request.getAttribute("nombreMe"));
+        request.setAttribute("nombre_S", request.getParameter("txtBuscar"));
+        nombre = String.valueOf(request.getAttribute("nombre_S"));
         try {
-            medicos = dao.buscarNombre(nombre);
+            Servicio = dao.buscarNombre(nombre);
             //este se usa pa enviar datos a editarPersona.jsp
-            request.setAttribute("med", medicos);  
+            request.setAttribute("S", Servicio);  
             request.setAttribute("ban", nombre);  
             crearBuscar(request, response);
             
         } catch (Exception e) {
-            request.setAttribute("Error", "No se pudo encontrar la mascota");
+            request.setAttribute("Error", "No se pudo encontrar el servicio");
         }  
     }
-
-    private Medico recuperarMedico(HttpServletRequest request) {
-        Medico me = new Medico();
-        me.setNombre(request.getParameter("txtNombre"));
-        me.setApellidoP(request.getParameter("txtApellidoP"));
-        me.setApellidoM(request.getParameter("txtApellidoM"));
-        me.setDNI(request.getParameter("txtDNI"));
-        me.setCMP(request.getParameter("txtCMP"));
-        me.setEspecialidad(request.getParameter("txtEspecialidad"));
+     
+     private Servicio recuperarServicio(HttpServletRequest request) {
+        Servicio S = new Servicio();
+        S.setCodigo_S(Integer.getInteger(request.getParameter("txtCodigo_S")));
+        S.setCodigo_TS(Integer.getInteger(request.getParameter("txtCodigo_TS")));
+        S.setCodigo_TS(Integer.getInteger(request.getParameter("txtCodigo_PR")));
+        S.setNombre_S(request.getParameter("txtNombre_S"));
+        S.setDescripcion_S(request.getParameter("txtDescripcion_S"));
+        S.setPrecio_S(request.getParameter("txtPrecio_S"));
         
-        if(request.getParameter("chkVigencia")!= null){
-            me.setVigencia(true);
+        if(request.getParameter("chkEstado")!= null){
+            S.setEstado(true);
         }else{
-            me.setVigencia(false);
+            S.setEstado(false);
         }
-        return me;
+        return S;
     }
+     
 }

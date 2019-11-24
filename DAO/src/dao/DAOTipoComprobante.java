@@ -1,25 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
-
 import accesodatos.conexion;
 import entidades.TipoComprobante;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- *
- * @author USUARIO
- */
 public class DAOTipoComprobante extends conexion {
     public void registrar(TipoComprobante TCO) throws Exception {
-        String sql = "INSERT INTO cliente( codigo_TCO, descripcion_TCO, estado_TCO) "
-                + " VALUES ( " + TCO.getCodigo_TCO() + ", '" + TCO.getDescripcion_TCO()
+        String sql = "INSERT INTO cliente( descripcion_TCO, estado_TCO) "
+                + " VALUES ( '" + TCO.getDescripcion_TCO()
                 + "', " + (TCO.isEstado_TCO()== true ? "1" : "0") + ")";
         try {
             this.conectar(true);
@@ -30,10 +19,8 @@ public class DAOTipoComprobante extends conexion {
             throw e;
         }
     }
-    
-    
-    
-     public List<TipoComprobante> listar() throws Exception {
+
+    public List<TipoComprobante> listar() throws Exception {
         List<TipoComprobante> tipocomprobante = null;
         TipoComprobante tco;
         ResultSet rs = null;
@@ -59,7 +46,7 @@ public class DAOTipoComprobante extends conexion {
         return tipocomprobante;
     }
      
-     public TipoComprobante leer(int id) throws Exception {
+    public TipoComprobante leer(int id) throws Exception {
         TipoComprobante tco = null;
         ResultSet rs = null;
         try {
@@ -79,9 +66,8 @@ public class DAOTipoComprobante extends conexion {
         }
         return tco;
     }
-     
-     
-        public void modificar(TipoComprobante tco) throws Exception {
+         
+    public void modificar(TipoComprobante tco) throws Exception {
         String sql = "UPDATE tipocomprobante SET "
                 + "nombre_TCO='" + tco.getDescripcion_TCO() + "', "
                 + "estado_TCO =" + (tco.isEstado_TCO()== true ? "1" : "0") + " "
@@ -94,10 +80,9 @@ public class DAOTipoComprobante extends conexion {
             this.cerrar(false);
             throw e;
         }
-    } 
-     
+    }      
         
-       public void eliminar(int id) throws Exception {
+    public void eliminar(int id) throws Exception {
         String sql = "DELETE FROM tipocomprobante "
                 + "WHERE codigo_TCO=" + id + ";";
         System.out.println("sql eliminar--> " + sql);
@@ -109,10 +94,9 @@ public class DAOTipoComprobante extends conexion {
             this.cerrar(false);
             throw e;
         }
-    }
+    }       
        
-       
-       public List<TipoComprobante> buscarNombre(String estado) throws Exception{
+    public List<TipoComprobante> buscarNombre(String estado) throws Exception{
         List<TipoComprobante> tipocomprobante = null;
         TipoComprobante tco = null;
         ResultSet rs = null;
@@ -128,15 +112,14 @@ public class DAOTipoComprobante extends conexion {
                 tco.setCodigo_TCO(rs.getInt("codigo_TCO"));
                 tco.setDescripcion_TCO(rs.getString("descripcion_TCO"));
                 tco.setEstado_TCO(rs.getBoolean("estado_TCO"));
-                tipocomprobante.add(tco);
-                
+                tipocomprobante.add(tco);             
             }
             rs.close();
             this.cerrar(true);
         } catch(Exception e){
             this.cerrar(false);
             throw  e;
-       }
+        }
         return tipocomprobante;
     } 
        

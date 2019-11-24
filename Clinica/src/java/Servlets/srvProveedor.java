@@ -154,9 +154,7 @@ public class srvProveedor extends HttpServlet {
             this.presentarFormulario(request, response);
         }
     }
-     
-     
-     
+       
     private void registrar(HttpServletRequest request, HttpServletResponse response) {
         DAOProveedor dao;
         Proveedor PR;

@@ -1,4 +1,3 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -9,7 +8,6 @@
     </head>
     <body>
         <h1>INGRESE NOMBRE DEL CLIENTE A BUSCAR</h1>
-        
         <form action="cliente?accion=buscar" method="post">
             <div>Nro Documento: <input type="text" name="txtBuscar" value="${ban}"> </div>
             <div><input type="submit" name="btnBuscar" value="Buscar"> </div>
@@ -19,7 +17,6 @@
         <table>
             <tr>
                 <td>N°</td>
-                <td>Tipo</td>
                 <td>Nro Documento</td>
                 <td>Nombre</td>
                 <td>Apellidos</td>     
@@ -43,6 +40,6 @@
         </table>
                 
         <br><br>
-        <div><a href="cliente?accion=listar">Regresar</a></div>    
+        <div><a href="cliente?accion=listar">Regresar</a></div>
     </body>
 </html>
