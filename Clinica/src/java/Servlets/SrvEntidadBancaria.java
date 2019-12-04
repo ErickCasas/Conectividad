@@ -121,9 +121,10 @@ public class SrvEntidadBancaria extends HttpServlet {
     private void presentarFormularioEditar(HttpServletRequest request, HttpServletResponse response) {
         DAOEntidadBancaria dao;
         EntidadBancaria PR;
+        int id = Integer.parseInt(request.getParameter("id"));
+            
         try {
             dao = new DAOEntidadBancaria();
-            int id = Integer.parseInt(request.getParameter("id"));
             PR = dao.leer(id);
             request.setAttribute("Entidad", PR);
             this.getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/paginas/editarentidadBancaria.jsp").forward(request, response);

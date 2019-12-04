@@ -39,12 +39,14 @@ public class DAOEntidadBancaria extends conexion{
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT  EB.nombre_E, EB.direccion_E, EB.ruc_E "
+            rs = this.ejecutarOrdenDatos("SELECT  * "
                     + " FROM EntidadBancaria EB "
                     + "ORDER BY EB.nombre_E");
             EntidadBancaria = new ArrayList<>();
             while (rs.next() == true) {
+                
                 EB = new EntidadBancaria();
+                EB.setCodigo_E(Integer.parseInt(rs.getString("codigo_E")));
                 EB.setNombre_E(rs.getString("nombre_E"));
                 EB.setDireccion_E(rs.getString("direccion_E"));
                 EB.setRuc_E(rs.getString("ruc_E"));
@@ -65,12 +67,14 @@ public class DAOEntidadBancaria extends conexion{
         EntidadBancaria EB = null;
         ResultSet rs = null;
         try {
-            this.conectar(false);
+            this.conectar(true);
             rs = this.ejecutarOrdenDatos("SELECT * "
                     + " FROM EntidadBancaria "
-                    + " WHERE ruc_E = " + id + ";");
+                    + " WHERE codigo_E = " + id + ";");
             while (rs.next() == true) {
                 EB = new EntidadBancaria();
+                
+                EB.setCodigo_E(Integer.parseInt(rs.getString("codigo_E")));
                 EB.setNombre_E(rs.getString("nombre_E"));
                 EB.setDireccion_E(rs.getString("direccion_E"));
                 EB.setRuc_E(rs.getString("ruc_E"));
@@ -85,11 +89,11 @@ public class DAOEntidadBancaria extends conexion{
     public void modificar(EntidadBancaria EB) throws Exception {
         String sql = "UPDATE EntidadBancaria SET "
                
-                + "nombre_E'" + EB.getNombre_E() + "', "
-                + "dreccion_E='" + EB.getDireccion_E()+ "', "
-                + "ruc_E='" + EB.getRuc_E()+ "', "
+                + "nombre_E = '" + EB.getNombre_E() + "', "
+                + "direccion_E='" + EB.getDireccion_E()+ "', "
+                + "ruc_E='" + EB.getRuc_E()+ "' "
            
-                + " WHERE ruc_E=" + EB.getRuc_E()+ ";";
+                + " WHERE codigo_E=" + EB.getCodigo_E()+ ";";
         try {
             this.conectar(true);
             this.ejecutarOrden(sql);
