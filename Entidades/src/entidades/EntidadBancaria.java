@@ -5,9 +5,18 @@ public class EntidadBancaria{
     private String nombre_E;
     private String direccion_E;
     private String ruc_E;
-
+    private Boolean estado_E;
+    
     public int getCodigo_E() {
         return codigo_E;
+    }
+
+    public Boolean getEstado_E() {
+        return estado_E;
+    }
+
+    public void setEstado_E(Boolean estado_E) {
+        this.estado_E = estado_E;
     }
 
     public void setCodigo_E(int codigo_E) {

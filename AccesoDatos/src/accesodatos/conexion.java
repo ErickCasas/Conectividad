@@ -27,7 +27,7 @@ public class conexion {
   protected void conectar(boolean wTransaccion) throws Exception {
     Class.forName("com.mysql.cj.jdbc.Driver");
     this.conexion = DriverManager.getConnection(
-            "jdbc:mysql://localhost/bd_pagoservicio?"
+            "jdbc:mysql://localhost/base_pagoservicio?"
             + "useUnicode=true&"
                     + "useJDBCCompliantTimezoneShift=true&"
             + "useLegacyDatetimeCode=false&serverTimezone=UTC&"

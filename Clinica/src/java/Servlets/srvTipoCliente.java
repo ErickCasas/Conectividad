@@ -98,7 +98,7 @@ public class srvTipoCliente extends HttpServlet {
             TipoCliente = dao.listar();
             request.setAttribute("TC", TipoCliente);
             this.getServletConfig().getServletContext().
-                    getRequestDispatcher("/WEB-INF/paginas/TipoCliente.jsp").
+                    getRequestDispatcher("/WEB-INF/paginas/tipoCliente.jsp").
                     forward(request, response);
         } catch(Exception e){
             System.out.println("Error" + e.getMessage());

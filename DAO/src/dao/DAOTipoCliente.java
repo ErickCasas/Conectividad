@@ -28,7 +28,7 @@ public class DAOTipoCliente extends conexion{
             this.conectar(false);
             rs = this.ejecutarOrdenDatos("SELECT TC.codigo_TC, TC.descripcion_TC, TC.estado_TC "
                     + " FROM tipocliente TC "
-                    + "ORDER BY TC.tipocliente");
+                    + "ORDER BY TC.descripcion_TC");
             tipoclientes = new ArrayList<>();
             while (rs.next() == true) {
                 tc = new TipoCliente();
