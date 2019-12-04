@@ -32,7 +32,7 @@
                 <td><c:out value="${cliente.apellido_C}"
                        default="No se encontró"/></td>
                 
-                    <td> <a href="cliente?accion=editar&id=${cliente.codigo_C}" > editar </a> o <a href="cliente?accion=eliminar&id=${cliente.codigo_C}" > eliminar </a></td>
+                <td> <a href="cliente?accion=editar&id=${cliente.codigo_C}" > editar </a> o <a href="cliente?accion=eliminar&id=${cliente.codigo_C}" > eliminar </a></td>
             </tr>
             </c:forEach>
         </table>
