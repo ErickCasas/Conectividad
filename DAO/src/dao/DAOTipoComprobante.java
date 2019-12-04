@@ -26,9 +26,9 @@ public class DAOTipoComprobante extends conexion {
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT TCO.codigo_TCO, TCO.descripcion_TCO, TCO.estado_TCO "
+            rs = this.ejecutarOrdenDatos("SELECT codigo_TCO, descripcion_TCO, estado_TCO "
                     + " FROM tipocomprobante TCO "
-                    + "ORDER BY TC.tipocliente");
+                    + "ORDER BY descripcion_TCO");
             tipocomprobante = new ArrayList<>();
             while (rs.next() == true) {
                 tco = new TipoComprobante();

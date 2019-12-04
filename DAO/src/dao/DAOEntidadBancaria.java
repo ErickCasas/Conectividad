@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import accesodatos.conexion;
@@ -11,12 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author USUARIO
- */
-public class DAOEntidadBancaria extends conexion{
-    
+public class DAOEntidadBancaria extends conexion{  
    public void registrar(EntidadBancaria EB) throws Exception {
         String sql = "INSERT INTO entidadbancaria( nombre_E, direccion_E, ruc_E) "
                 + " VALUES ( '" + EB.getNombre_E() + "', '" + EB.getDireccion_E()
@@ -30,8 +20,6 @@ public class DAOEntidadBancaria extends conexion{
             throw e;
         }
     }
-   
-   
    
     public List<EntidadBancaria> listar() throws Exception {
         List<EntidadBancaria> EntidadBancaria = null;
@@ -59,11 +47,10 @@ public class DAOEntidadBancaria extends conexion{
             this.cerrar(false);
             throw e;
         }
-        return EntidadBancaria;
-        
+        return EntidadBancaria;       
     }
     
-       public EntidadBancaria leer(int id) throws Exception {
+    public EntidadBancaria leer(int id) throws Exception {
         EntidadBancaria EB = null;
         ResultSet rs = null;
         try {
@@ -87,8 +74,7 @@ public class DAOEntidadBancaria extends conexion{
     }  
     
     public void modificar(EntidadBancaria EB) throws Exception {
-        String sql = "UPDATE EntidadBancaria SET "
-               
+        String sql = "UPDATE EntidadBancaria SET "               
                 + "nombre_E = '" + EB.getNombre_E() + "', "
                 + "direccion_E='" + EB.getDireccion_E()+ "', "
                 + "ruc_E='" + EB.getRuc_E()+ "' "
@@ -103,9 +89,8 @@ public class DAOEntidadBancaria extends conexion{
             throw e;
         }
     }
-        
-        
-        public void eliminar(int id) throws Exception {
+               
+    public void eliminar(int id) throws Exception {
         String sql = "DELETE FROM EntidadBancaria "
                 + "WHERE ruc_E=" + id + ";";
         System.out.println("sql eliminar--> " + sql);
@@ -129,10 +114,9 @@ public class DAOEntidadBancaria extends conexion{
             this.cerrar(false);
             throw e;
         }
-    }
-        
+    }        
       
-        public List<EntidadBancaria> buscarRucEntidadBancaria(String ruc_E) throws Exception{
+    public List<EntidadBancaria> buscarRucEntidadBancaria(String ruc_E) throws Exception{
         List<EntidadBancaria> EntidadBancaria = null;
         EntidadBancaria EB = null;
         ResultSet rs = null;
@@ -151,7 +135,7 @@ public class DAOEntidadBancaria extends conexion{
                 EB.setRuc_E(rs.getString("ruc_E"));
                 
                 EntidadBancaria.add(EB);
-                            }
+            }
             rs.close();
             this.cerrar(true);
         } catch(Exception e){
@@ -159,6 +143,5 @@ public class DAOEntidadBancaria extends conexion{
             throw  e;
         }
         return EntidadBancaria;
-    }
-        
+    }    
 }

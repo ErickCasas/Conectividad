@@ -1,7 +1,7 @@
 package Servlets;
 
-import dao.DAOEntidadBancaria;
-import entidades.EntidadBancaria;
+import dao.DAOTipoUsuario;
+import entidades.TipoUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "SrvEntidadBancaria", urlPatterns = {"/EntidadBancaria"})
-public class SrvEntidadBancaria extends HttpServlet {
+@WebServlet(name = "SrvTipoUsuario", urlPatterns = {"/TipoUsuario"})
+public class SrvTipoUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         String accion = request.getParameter("accion");
@@ -35,7 +35,7 @@ public class SrvEntidadBancaria extends HttpServlet {
             case "eliminar":
                 this.eliminar(request, response);
                 break;
-        }   
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -76,106 +76,102 @@ public class SrvEntidadBancaria extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
+
     private void listar(HttpServletRequest request, HttpServletResponse response) {
-        DAOEntidadBancaria dao = new DAOEntidadBancaria();
-        List<EntidadBancaria> entidad = null;
+        DAOTipoUsuario dao = new DAOTipoUsuario();
+        List<TipoUsuario> entidad = null;
               
         try {
             entidad = dao.listar();
-            request.setAttribute("ENT", entidad);
+            request.setAttribute("tu", entidad);
             this.getServletConfig().getServletContext().
-                    getRequestDispatcher("/WEB-INF/paginas/entidadBancaria.jsp").
+                    getRequestDispatcher("/WEB-INF/paginas/tipoUsuario.jsp").
                     forward(request, response);
         } catch(Exception e){
             System.out.println("Error" + e.getMessage());
-            request.setAttribute("Error", "No se pudo listar la lista de los proveedores");
+            request.setAttribute("Error", "No se pudo listar la lista de tipos de usuarios");
         }
     }
-    
-    private void presentarFormularioEditar(HttpServletRequest request, HttpServletResponse response) {
-        DAOEntidadBancaria dao;
-        EntidadBancaria PR;
-        int id = Integer.parseInt(request.getParameter("id"));
-            
-        try {
-            dao = new DAOEntidadBancaria();
-            PR = dao.leer(id);
-            request.setAttribute("Entidad", PR);
-            this.getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/paginas/editarentidadBancaria.jsp").forward(request, response);
 
-        } catch (Exception e) {
-            System.out.println("Error" + e.getMessage());
-            request.setAttribute("error", "no se pudo listar los Proveedores");
-        }
-    }
-    
     private void presentarFormulario(HttpServletRequest request, HttpServletResponse response) {
         try {
             this.getServletConfig().getServletContext().
-                    getRequestDispatcher("/WEB-INF/paginas/entidadbancarianueva.jsp").
+                    getRequestDispatcher("/WEB-INF/paginas/tipousuarionuevo.jsp").
                     forward(request, response);
         } catch(Exception e){
-            request.setAttribute("Error", "No se pudo mostrar el Proveedor");
+            request.setAttribute("Error", "No se pudo mostrar los tipo de usuarios");
+        }
+    }
+
+    private void presentarFormularioEditar(HttpServletRequest request, HttpServletResponse response) {
+        DAOTipoUsuario dao;
+        TipoUsuario tu;
+        int id = Integer.parseInt(request.getParameter("id"));
+            
+        try {
+            dao = new DAOTipoUsuario();
+            tu = dao.leer(id);
+            request.setAttribute("TipoUsuario", tu);
+            this.getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/paginas/editartipousuario.jsp").forward(request, response);
+        } catch (Exception e) {
+            System.out.println("Error" + e.getMessage());
+            request.setAttribute("error", "no se pudo listar los tipos de usuarios");
         }
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) {
-        DAOEntidadBancaria dao;
-        EntidadBancaria ent;
+        DAOTipoUsuario dao;
+        TipoUsuario tu;
         
-        ent = this.recuperarEntidad(request);
-        dao = new DAOEntidadBancaria();
+        tu = this.recuperarEntidad(request);
+        dao = new DAOTipoUsuario();
         try {
-            dao.registrar(ent);
-            response.sendRedirect("EntidadBancaria?accion=listar");
+            dao.registrar(tu);
+            response.sendRedirect("TipoUsuario?accion=listar");
         }catch(Exception e){
             request.setAttribute("msje", "No se pudo registrar.");
-            request.setAttribute("Proveedor", ent);
-            
-            this.presentarFormulario(request, response);
-        }   
-    }      
-    
-    private void modificar(HttpServletRequest request, HttpServletResponse response) {         
-        DAOEntidadBancaria dao;
-        EntidadBancaria ent;
-        int id;
-        ent = this.recuperarEntidad(request);
-        dao = new DAOEntidadBancaria();
-        try {
-            id = Integer.parseInt(request.getParameter("id"));
-            ent.setCodigo_E(id);
-            dao.modificar(ent);
-            response.sendRedirect("EntidadBancaria?accion=listar");
-        }catch(Exception e){
-            request.setAttribute("msje", "No se pudo Modificar.");
-            request.setAttribute("EntidadBancaria", ent);
+            request.setAttribute("Proveedor", tu);
             
             this.presentarFormulario(request, response);
         }   
     }
-     
+    
+    private void modificar(HttpServletRequest request, HttpServletResponse response) {
+        DAOTipoUsuario dao;
+        TipoUsuario tu;
+        int id;
+        tu = this.recuperarEntidad(request);
+        dao = new DAOTipoUsuario();
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+            tu.setCodigo_TU(id);
+            dao.modificar(tu);
+            response.sendRedirect("TipoUsuario?accion=listar");
+        }catch(Exception e){
+            request.setAttribute("msje", "No se pudo Modificar");
+            request.setAttribute("Proveedor", tu);
+            
+            this.presentarFormulario(request, response);
+        }
+    }
     private void eliminar(HttpServletRequest request, HttpServletResponse response) {
-        DAOEntidadBancaria dao;
+        DAOTipoUsuario dao;
         int id;
         id = Integer.parseInt(request.getParameter("id"));
         try {
-            dao = new DAOEntidadBancaria();
+            dao = new DAOTipoUsuario();
             dao.cambiarEstado(id);
             response.sendRedirect("EntidadBancaria?accion=listar");
         } catch (Exception e) {
             request.setAttribute("msje", "no se pudo Eliminar");          
         }
     }
-          
-    private EntidadBancaria recuperarEntidad(HttpServletRequest request) {
-        EntidadBancaria PR = new EntidadBancaria();
+
+    private TipoUsuario recuperarEntidad(HttpServletRequest request) {
+        TipoUsuario tu = new TipoUsuario();
         
-        PR.setNombre_E(request.getParameter("txtNombre"));
-        PR.setDireccion_E(request.getParameter("txtDireccion"));
-        PR.setRuc_E(request.getParameter("txtRUC"));
+        tu.setDescripcion_TU(request.getParameter("txtDescripcion"));
         
-        return PR;
+        return tu;
     }
 }

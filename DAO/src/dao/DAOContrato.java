@@ -27,9 +27,9 @@ public class DAOContrato extends conexion{
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT C.codigo_CONT, C.codigo_C, C.codigo_S, C.fechaInicio_CONT, C.fechaFin_CONT "
+            rs = this.ejecutarOrdenDatos("SELECT codigo_CONT, codigo_C, codigo_S, fechaInicio_CONT, fechaFin_CONT "
                     + " FROM contrato C "
-                    + "ORDER BY C.codigo_C");
+                    + "ORDER BY fechaInicio_CONT");
             contratos = new ArrayList<>();
             while (rs.next() == true) {
                 c = new Contrato();

@@ -39,9 +39,9 @@ public void registrar(Proveedor PR) throws Exception {
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT PR.razonSocial_PR, PR.nombre_PR, PR_ruc_PR, PR_direccion_PR, PR_telefono_PR, PR_estado_PR "
+            rs = this.ejecutarOrdenDatos("SELECT razonSocial_PR, nombre_PR, ruc_PR, direccion_PR, telefono_PR, estado_PR "
                     + " FROM Proveedor PR "
-                    + "ORDER BY PR.nombre_PR");
+                    + "ORDER BY nombre_PR");
             Proveedor = new ArrayList<>();
             while (rs.next() == true) {
                 

@@ -28,7 +28,7 @@ public class DAOUsuario extends conexion{
             this.conectar(false);
             rs = this.ejecutarOrdenDatos("SELECT codigo_U, codigo_TU, codigo_C, codigo_P, nombre_U, password_U, vigencia_U "
                     + " FROM usuario U "
-                    + "ORDER BY U.nombre_U");
+                    + "ORDER BY nombre_U");
             usuario = new ArrayList<>();
             while (rs.next() == true) {
                 U = new Usuario();

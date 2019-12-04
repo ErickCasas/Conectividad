@@ -28,9 +28,9 @@ public class DAOCuentaBancaria extends conexion{
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT CB.codigo_B, CB.codigo_PR, CB.codigo_P, CB.numeroCuenta_B, CB.tipoCuenta_B, CB.fechaVencimiento_B, CB.clave_B, CB.estado_B, CB.saldo_B "
+            rs = this.ejecutarOrdenDatos("SELECT codigo_B, codigo_PR, codigo_P, numeroCuenta_B, tipoCuenta_B, fechaVencimiento_B, clave_B, estado_B, saldo_B "
                     + " FROM CuentaBancaria CB "
-                    + "ORDER BY CB.tipoCuenta_B");
+                    + "ORDER BY tipoCuenta_B");
             CuentaBancaria = new ArrayList<>();
             while (rs.next() == true) {
                 CB = new CuentaBancaria();

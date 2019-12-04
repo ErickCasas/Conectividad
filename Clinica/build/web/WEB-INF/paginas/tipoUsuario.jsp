@@ -8,8 +8,8 @@
     </head>
     <body>
         <h1>Tipo Usuario</h1>
-        <a href="tipousuario?accion=crear">Nuevo Tipo Usuario</a>       
-        <a href="tipousuario?accion=crearBuscar">Buscar Tipo Usuario</a>
+        <a href="TipoUsuario?accion=crear">Nuevo Tipo Usuario</a>       
+        <a href="TipoUsuario?accion=crearBuscar">Buscar Tipo Usuario</a>
         
         <table>
             <tr>
@@ -25,10 +25,7 @@
                        default="No se encontró"/></td>
                 <td><c:out value="${tipousuario.descripcion_TU}"
                        default="No se encontró"/></td>
-                <td><c:out value="${tipousuario.estado_TU}"
-                       default="No se encontró"/></td>
-                
-                <td><a href="tipousuario?accion=editar&id=${tipousuario.codigo_TU}" > editar </a> o <a href="tipousuario?accion=eliminar&id=${tipousuario.codigo_TU}" > eliminar </a></td>
+                <td><a href="TipoUsuario?accion=editar&id=${tipousuario.codigo_TU}" > editar </a> o <a href="TipoUsuario?accion=eliminar&id=${tipousuario.codigo_TU}" > eliminar </a></td>
             </tr>
             </c:forEach>
         </table>

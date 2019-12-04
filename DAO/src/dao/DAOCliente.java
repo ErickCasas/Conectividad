@@ -27,9 +27,9 @@ public class DAOCliente extends conexion{
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT C.codigo_TC, nroDocumento_C, C.nombre_C, C.apellido_C "
+            rs = this.ejecutarOrdenDatos("SELECT codigo_TC, nroDocumento_C, nombre_C, apellido_C "
                     + " FROM cliente C "
-                    + "ORDER BY C.apellido_C");
+                    + "ORDER BY nombre_C");
             clientes = new ArrayList<>();
             while (rs.next() == true) {
                 c = new Cliente();

@@ -28,9 +28,9 @@ public class DAOPago extends conexion{
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT P.codigo_P, P.codigo_TP, P.codigo_COMP, P.fecha_COMP, P.total_COMP, P.estado_COMP "
+            rs = this.ejecutarOrdenDatos("SELECT codigo_P, codigo_TP, codigo_COMP, fecha_COMP, total_COMP, estado_COMP "
                     + " FROM Pago P "
-                    + "ORDER BY P.estado_COMP");
+                    + "ORDER BY fecha_COMP");
             Pago = new ArrayList<>();
             while (rs.next() == true) {
                 P = new Pago();

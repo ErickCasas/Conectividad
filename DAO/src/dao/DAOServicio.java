@@ -28,9 +28,9 @@ public class DAOServicio extends conexion{
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT S.codigo_S, S.codigo_TS, S.codigo_PR, S.nombre_S, S.descripcion_S, S.precio_S, S.estado_S "
+            rs = this.ejecutarOrdenDatos("SELECT codigo_S, codigo_TS, codigo_PR, nombre_S, descripcion_S, precio_S, estado_S "
                     + " FROM servicio S "
-                    + "ORDER BY S.nombre_S");
+                    + "ORDER BY nombre_S");
             servicios = new ArrayList<>();
             while (rs.next() == true) {
                 S = new Servicio();

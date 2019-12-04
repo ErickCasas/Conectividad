@@ -32,7 +32,7 @@ public class DAOMes extends conexion{
             rs = this.ejecutarOrdenDatos("SELECT codigo_M, codigo_CONT, intervaloT_M, fechaInicio_M, fechaFin_M, vigencia_M, "
                     + "observacion_M, costo_M "
                     + " FROM mes M "
-                    + "ORDER BY M.fechaInicio_M");
+                    + "ORDER BY fechaInicio_M");
             meses = new ArrayList<>();
             while (rs.next() == true) {
                 m = new Mes();

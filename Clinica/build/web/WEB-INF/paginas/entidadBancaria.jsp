@@ -1,12 +1,4 @@
-
-<%-- 
-    Document   : entidadBancaria
-    Created on : 03-dic-2019, 17:31:23
-    Author     : USUARIO
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -15,11 +7,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Entidad Bancaria</h1>
-        
-        
-         <a href="EntidadBancaria?accion=crear">Nueva Entidad Bancaria</a>      
-       
+        <h1>Entidad Bancaria</h1>         
+        <a href="EntidadBancaria?accion=crear">Nueva Entidad Bancaria</a>           
         <table>
             <tr>
                 <td>N°</td>

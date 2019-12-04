@@ -26,9 +26,9 @@ public class DAOTipoPago extends conexion{
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT TP.codigo_TP, TP.descripcion_TP, TP.estado_TP "
+            rs = this.ejecutarOrdenDatos("SELECT codigo_TP, descripcion_TP, estado_TP "
                     + " FROM tipopago TP "
-                    + "ORDER BY TP.tipopago");
+                    + "ORDER BY descripcion_TP");
             tipopagos = new ArrayList<>();
             while (rs.next() == true) {
                 tp = new TipoPago();

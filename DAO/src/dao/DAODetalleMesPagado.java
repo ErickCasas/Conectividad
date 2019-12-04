@@ -29,7 +29,7 @@ public class DAODetalleMesPagado extends conexion{
             this.conectar(false);
             rs = this.ejecutarOrdenDatos("SELECT codigo_DMP, codigo_M, codigo_P, monto_DMP "
                     + " FROM detallemespagado DM "
-                    + "ORDER BY DM.monto_DMP");
+                    + "ORDER BY monto_DMP");
             meses = new ArrayList<>();
             while (rs.next() == true) {
                 Dm = new DetalleMesPagado();

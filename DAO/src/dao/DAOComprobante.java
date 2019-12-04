@@ -28,7 +28,7 @@ public class DAOComprobante extends conexion{
             this.conectar(false);
             rs = this.ejecutarOrdenDatos("SELECT codigo_COMP, codigo_CONT, codigo_TCO , monto_COMP, estado_COMP "
                     + " FROM Comprobante C "
-                    + "ORDER BY C.monto_COMP");
+                    + "ORDER BY monto_COMP");
             comprobantes = new ArrayList<>();
             while (rs.next() == true) {
                 c = new Comprobante();
