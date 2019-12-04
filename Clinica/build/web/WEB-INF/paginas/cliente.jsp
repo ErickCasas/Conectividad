@@ -1,5 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -15,7 +14,7 @@
         <table>
             <tr>
                 <td>N°</td>
-                <td>Tipo</td>
+                <td>Codigo Tipo Cliente</td>
                 <td>Nro Documento</td>
                 <td>Nombre</td>
                 <td>Apellidos</td>     

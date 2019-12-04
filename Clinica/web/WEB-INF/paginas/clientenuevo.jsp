@@ -7,7 +7,7 @@
         <title>NUEVO CLIENTE</title>
     </head>
     <body>
-        <h1>MEDICO CLIENTE</h1>
+        <h1>NUEVO CLIENTE</h1>
         <c:if test ="${msje != null}">
             <div>${msje}</div>
         </c:if>
