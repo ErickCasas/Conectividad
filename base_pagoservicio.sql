@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-12-2019 a las 23:44:49
+-- Tiempo de generación: 07-12-2019 a las 10:26:51
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.3
 
@@ -110,8 +110,17 @@ CREATE TABLE `entidadbancaria` (
   `codigo_E` int(11) NOT NULL,
   `nombre_E` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `direccion_E` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `ruc_E` varchar(30) COLLATE utf8_unicode_ci NOT NULL
+  `ruc_E` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `estado_E` tinyint(1) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `entidadbancaria`
+--
+
+INSERT INTO `entidadbancaria` (`codigo_E`, `nombre_E`, `direccion_E`, `ruc_E`, `estado_E`) VALUES
+(1, 'BCP11', 'ramon castilla', '848234', 0),
+(2, 'BBVA Continental', 'Ramon Catilla', '1231432', 0);
 
 -- --------------------------------------------------------
 
@@ -161,6 +170,13 @@ CREATE TABLE `proveedor` (
   `estado_PR` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `proveedor`
+--
+
+INSERT INTO `proveedor` (`codigo_PR`, `razonSocial_PR`, `nombre_PR`, `ruc_PR`, `direccion_PR`, `telefono_PR`, `estado_PR`) VALUES
+(123456, 'ventas', 'microsoft', 'ruc01', 'santa victoria', '991978332', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -170,12 +186,21 @@ CREATE TABLE `proveedor` (
 CREATE TABLE `servicio` (
   `codigo_S` int(11) NOT NULL,
   `codigo_TS` int(11) NOT NULL,
-  `nombre_PR` int(11) NOT NULL,
+  `codigo_PR` int(11) NOT NULL,
   `nombre_S` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `descripcion_S` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `precio_S` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `estado` tinyint(1) NOT NULL
+  `estado_S` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `servicio`
+--
+
+INSERT INTO `servicio` (`codigo_S`, `codigo_TS`, `codigo_PR`, `nombre_S`, `descripcion_S`, `precio_S`, `estado_S`) VALUES
+(456, 123, 123456, 'cable', 'cable hogar', '200', 0),
+(457, 123, 123456, 'shashjsa', 'ajsjsa', '23', 1),
+(458, 123, 123456, 'sdd', 'dsd', '23', 0);
 
 -- --------------------------------------------------------
 
@@ -225,6 +250,13 @@ CREATE TABLE `tiposervicio` (
   `estado_TS` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `tiposervicio`
+--
+
+INSERT INTO `tiposervicio` (`codigo_TS`, `descripcion_TS`, `estado_TS`) VALUES
+(123, 'internet', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -236,6 +268,13 @@ CREATE TABLE `tipousuario` (
   `descripcion_TU` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `estado_TU` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tipousuario`
+--
+
+INSERT INTO `tipousuario` (`codigo_TU`, `descripcion_TU`, `estado_TU`) VALUES
+(1, 's', 1);
 
 -- --------------------------------------------------------
 
@@ -407,7 +446,7 @@ ALTER TABLE `detallemespagado`
 -- AUTO_INCREMENT de la tabla `entidadbancaria`
 --
 ALTER TABLE `entidadbancaria`
-  MODIFY `codigo_E` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo_E` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `mes`
@@ -425,13 +464,13 @@ ALTER TABLE `pago`
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `codigo_PR` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo_PR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123457;
 
 --
 -- AUTO_INCREMENT de la tabla `servicio`
 --
 ALTER TABLE `servicio`
-  MODIFY `codigo_S` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo_S` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=459;
 
 --
 -- AUTO_INCREMENT de la tabla `tipocliente`
@@ -455,13 +494,13 @@ ALTER TABLE `tipopago`
 -- AUTO_INCREMENT de la tabla `tiposervicio`
 --
 ALTER TABLE `tiposervicio`
-  MODIFY `codigo_TS` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo_TS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 
 --
 -- AUTO_INCREMENT de la tabla `tipousuario`
 --
 ALTER TABLE `tipousuario`
-  MODIFY `codigo_TU` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo_TU` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

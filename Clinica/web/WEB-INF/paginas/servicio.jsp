@@ -17,7 +17,7 @@
                 <td>Codigo Tipo Servicio</td>
                 <td>Codigo Proveedor</td>
                 <td>Nombre de Servicio</td>
-                <td>Descripcion de Servicio/td>
+                <td>Descripcion de Servicio</td>
                 <td>Precio Servicio</td>     
                 <td>Opciones</td>
             </tr>

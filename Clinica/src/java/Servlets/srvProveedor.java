@@ -113,7 +113,7 @@ public class srvProveedor extends HttpServlet {
     private void presentarFormulario(HttpServletRequest request, HttpServletResponse response) {
         try {
             this.getServletConfig().getServletContext().
-                    getRequestDispatcher("/WEB-INF/paginas/Proveedor.jsp").
+                    getRequestDispatcher("/WEB-INF/paginas/proveedornuevo.jsp").
                     forward(request, response);
         } catch(Exception e){
             request.setAttribute("Error", "No se pudo mostrar el Proveedor");
@@ -134,7 +134,6 @@ public class srvProveedor extends HttpServlet {
             System.out.println("Error" + e.getMessage());
             request.setAttribute("error", "no se pudo listar los Proveedores");
         }
-
     }
      
      
