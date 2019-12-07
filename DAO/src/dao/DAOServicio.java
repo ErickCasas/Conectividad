@@ -109,6 +109,17 @@ public class DAOServicio extends conexion{
             throw e;
         }
     }
+       public void cambiarEstado(int id) throws Exception {
+        String sql = "UPDATE EntidadBancaria SET estado_S = 0 WHERE codigo_S= "+id+";";
+        try {
+            this.conectar(true);
+            this.ejecutarOrden(sql);
+            this.cerrar(true);
+        } catch (Exception e) {
+            this.cerrar(false);
+            throw e;
+        }
+    }   
     
     public List<Servicio> buscarNombre(String nombre) throws Exception{
         List<Servicio> servicios = null;

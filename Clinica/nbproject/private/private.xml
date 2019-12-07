@@ -2,13 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group>
-            <file>file:/C:/Users/USUARIO/Documents/GitHub/Conectividad/Clinica/src/java/Servlets/srvProveedor.java</file>
-            <file>file:/C:/Users/USUARIO/Documents/GitHub/Conectividad/Clinica/src/java/Servlets/SrvCliente.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/GitHub/Conectividad/Clinica/src/java/Servlets/SrvEntidadBancaria.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/GitHub/Conectividad/Clinica/web/WEB-INF/paginas/entidadbancarianueva.jsp</file>
+            <file>file:/C:/Users/USUARIO/Documents/GitHub/Conectividad/Clinica/src/java/Servlets/srvServicio.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/GitHub/Conectividad/Clinica/web/WEB-INF/paginas/servicioNuevo.jsp</file>
+            <file>file:/C:/Users/USUARIO/Documents/GitHub/Conectividad/Clinica/web/index.html</file>
         </group>
-=======
-        <group/>
->>>>>>> 05784088b32d077c482699d875f842ea13436542
     </open-files>
 </project-private>
