@@ -8,8 +8,8 @@
     </head>
     <body>
         <h1>Lista de Servicios</h1>
-        <a href="servicio?accion=crear">Nuevo Servicio</a>       
-        <a href="servicio?accion=crearBuscar">Buscar Servicio</a>
+        <a href="Servicio?accion=crear">Nuevo Servicio</a>       
+        <a href="Servicio?accion=crearBuscar">Buscar Servicio</a>
       
         <table>
             <tr>
@@ -21,7 +21,7 @@
                 <td>Precio Servicio</td>     
                 <td>Opciones</td>
             </tr>
-            <c:forEach items="${ser}" var="cliente"  varStatus="iteracion">
+            <c:forEach items="${ser}" var="Servicio"  varStatus="iteracion">
             <tr>
                 <td>${iteracion.index + 1}</td>   
                 <td><c:out value="${servicio.codigo_TS}"
@@ -35,7 +35,7 @@
                 <td><c:out value="${servicio.precio_S}"
                        default="No se encontró"/></td>
                 
-                <td> <a href="servicio?accion=editar&id=${servicio.codigo_S}" > editar </a> o <a href="servicio?accion=eliminar&id=${servicio.codigo_S}" > eliminar </a></td>
+                <td> <a href="Servicio?accion=editar&id=${servicio.codigo_S}" > editar </a> o <a href="Servicio?accion=eliminar&id=${servicio.codigo_S}" > eliminar </a></td>
             </tr>
             </c:forEach>
         </table>
