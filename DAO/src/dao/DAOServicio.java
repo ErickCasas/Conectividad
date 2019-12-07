@@ -8,10 +8,8 @@ import java.util.List;
 
 public class DAOServicio extends conexion{
     public void registrar(Servicio S) throws Exception {
-        String sql = "INSERT INTO cliente( codigo_TS, codigo_PR, nombre_S, descripcion_S, precio_S, estado_S) "
-                + " VALUES ( " + S.getCodigo_TS() + ", " + S.getCodigo_PR()
-                + ", '" + S.getDescripcion_S() + "', '" + S.getPrecio_S() + "', "  
-                + (S.isEstado()== true ? "1" : "0") + ")";
+        String sql = "INSERT INTO servicio( codigo_TS, codigo_PR, nombre_S, descripcion_S, precio_S, estado_S) "
+                + " VALUES ( " + S.getCodigo_TS() + ", " + S.getCodigo_PR() + ", '" + S.getNombre_S()+ "', '" + S.getDescripcion_S() + "', '" + S.getPrecio_S() + "',1)";
         try {
             this.conectar(true);
             this.ejecutarOrden(sql);
@@ -28,7 +26,7 @@ public class DAOServicio extends conexion{
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT codigo_S, codigo_TS, codigo_PR, nombre_S, descripcion_S, precio_S, estado_S "
+            rs = this.ejecutarOrdenDatos("SELECT codigo_S, codigo_TS,codigo_PR, nombre_S, descripcion_S, precio_S, estado_S "
                     + " FROM servicio S "
                     + "ORDER BY nombre_S");
             servicios = new ArrayList<>();
@@ -81,10 +79,9 @@ public class DAOServicio extends conexion{
         String sql = "UPDATE servicio SET "
                 + "codigo_TS=" + S.getCodigo_TS() + ", "
                 + "codigo_PR=" + S.getCodigo_PR() + ", "
-                + "nombre_S'" + S.getNombre_S() + "', "
+                + "nombre_S='" + S.getNombre_S() + "', "
                 + "descripcion_S='" + S.getDescripcion_S() + "', "
-                + "precio_S='" + S.getPrecio_S() + "', "
-                + "estado_S =" + (S.isEstado()== true ? "1" : "0") + " "
+                + "precio_S='" + S.getPrecio_S() + "' "               
                 + " WHERE codigo_S=" + S.getCodigo_S()+ ";";
         try {
             this.conectar(true);
@@ -110,7 +107,7 @@ public class DAOServicio extends conexion{
         }
     }
        public void cambiarEstado(int id) throws Exception {
-        String sql = "UPDATE EntidadBancaria SET estado_S = 0 WHERE codigo_S= "+id+";";
+        String sql = "UPDATE servicio SET estado_S = 0 WHERE codigo_S= "+id+";";
         try {
             this.conectar(true);
             this.ejecutarOrden(sql);
@@ -129,7 +126,7 @@ public class DAOServicio extends conexion{
         try{
             this.conectar(false);
             rs = this.ejecutarOrdenDatos("SELECT * "
-                    + "FROM servicio WHERE nombre_C LIKE '%" + nombre + "%'");
+                    + "FROM servicio WHERE nombre_S LIKE '%" + nombre + "%'");
             
             servicios = new ArrayList<>();
             while (rs.next() == true){

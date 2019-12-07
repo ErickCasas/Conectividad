@@ -40,6 +40,6 @@
         </table>
                 
         <br><br>
-        <div><a href="cliente?accion=listar">Regresar</a></div>
+        <div><a href="Cliente?accion=listar">Regresar</a></div>
     </body>
 </html>

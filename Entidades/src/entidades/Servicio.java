@@ -57,11 +57,11 @@ public class Servicio{
         this.precio_S = precio_S;
     }
 
-    public Boolean isEstado() {
+    public Boolean getEstado() {
         return estado;
     }
 
     public void setEstado(Boolean estado) {
         this.estado = estado;
-    }
+    }  
 }

@@ -7,18 +7,16 @@
         <title>Editar Servicio</title>
     </head>
     <body>
-        <h1>Editar Servicio - ${servicio.codigo_S}</h1>
+        <h1>Editar Servicio - ${Servicio.codigo_S}</h1>
         <c:if test="${msje!=null}">
             <div>${msje}</div>
         </c:if>
-        <form action="servicio?accion=modificar&id=${servicio.codigo_S}" method="post">
-            <div>Codigo Tipo Servicio : <input type="text" name="txtTipoServicio" value="${servicio.codigo_TS}"></div>
-            <div>Codigo Proveedor : <input type="text" name="txtCodigoProveedor" value="${servicio.codigo_TS}"></div>
-            <div>Nombre       : <input type="text" name="txtNombre" value="${servicio.nombre_S}"></div>
-            <div>Descripcion  : <input type="text" name="txtDescripcion" value="${servicio.descripcion_S}"></div>
-            <div>Precio       : <input type="text" name="txtPrecio" value="${servicio.precio_S}"></div>
-            <div>Estado       : <input type="checkbox" name="chkEstado" 
-                                 ${servicio.estado_S == true?'checked':'unchecked'}></div>
+        <form action="srvServicio?accion=modificar&id=${Servicio.codigo_S}" method="post">
+            <div>Codigo Tipo Servicio : <input type="text" name="txtTipoServicio" value="${Servicio.codigo_TS}"></div>
+            <div>Codigo Proveedor : <input type="text" name="txtProveedor" value="${Servicio.codigo_PR}"></div>
+            <div>Nombre       : <input type="text" name="txtNombre" value="${Servicio.nombre_S}"></div>
+            <div>Descripcion  : <input type="text" name="txtDescripcion" value="${Servicio.descripcion_S}"></div>
+            <div>Precio       : <input type="text" name="txtPrecio" value="${Servicio.precio_S}"></div>
             <div><input type="submit" name="btnRegistrar" value="EDITAR"></div>         
         </form>
     </body>

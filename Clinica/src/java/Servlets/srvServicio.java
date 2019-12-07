@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Servlets;
 
 import dao.DAOServicio;
@@ -16,13 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author USUARIO
- */
-@WebServlet(name = "srvServicio", urlPatterns = {"/Servicio"})
+@WebServlet(name = "srvServicio", urlPatterns = {"/srvServicio"})
 public class srvServicio extends HttpServlet {
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -54,6 +44,12 @@ public class srvServicio extends HttpServlet {
                 break;
             case "eliminar":
                 this.eliminar(request, response);
+                break;
+            case "crearBuscar":
+                this.crearBuscar(request, response); 
+                break;            
+            case "buscar":
+                this.buscar(request, response); 
                 break;
         }   
     }
@@ -97,13 +93,13 @@ public class srvServicio extends HttpServlet {
         return "Short description";
     }// </editor-fold>
        
-      private void listar(HttpServletRequest request, HttpServletResponse response) {
+    private void listar(HttpServletRequest request, HttpServletResponse response) {
         DAOServicio dao = new DAOServicio();
         List<Servicio> servicio = null;
               
         try {
             servicio = dao.listar();
-            request.setAttribute("S", servicio);
+            request.setAttribute("SER", servicio);
             this.getServletConfig().getServletContext().
                     getRequestDispatcher("/WEB-INF/paginas/servicio.jsp").
                     forward(request, response);
@@ -111,7 +107,6 @@ public class srvServicio extends HttpServlet {
             System.out.println("Error" + e.getMessage());
             request.setAttribute("Error", "No se pudo listar la lista de los servicios");
         }
-      
     }
                 
     private void presentarFormularioEditar(HttpServletRequest request, HttpServletResponse response) {
@@ -130,7 +125,8 @@ public class srvServicio extends HttpServlet {
             request.setAttribute("error", "no se pudo listar los servicios");
         }
     }
-        private void presentarFormulario(HttpServletRequest request, HttpServletResponse response) {
+    
+    private void presentarFormulario(HttpServletRequest request, HttpServletResponse response) {
         try {
             this.getServletConfig().getServletContext().
                     getRequestDispatcher("/WEB-INF/paginas/servicioNuevo.jsp").
@@ -148,7 +144,7 @@ public class srvServicio extends HttpServlet {
         dao = new DAOServicio();
         try {
             dao.registrar(S);
-            response.sendRedirect("Servicio?accion=listar");
+            response.sendRedirect("srvServicio?accion=listar");
         }catch(Exception e){
             request.setAttribute("msje", "No se pudo registrar.");
             request.setAttribute("Servicio", S);
@@ -156,9 +152,8 @@ public class srvServicio extends HttpServlet {
             this.presentarFormulario(request, response);
         }   
     }     
-    
-    
-        private void modificar(HttpServletRequest request, HttpServletResponse response) {         
+       
+    private void modificar(HttpServletRequest request, HttpServletResponse response) {         
         DAOServicio dao;
         Servicio S;
         int id;
@@ -168,7 +163,7 @@ public class srvServicio extends HttpServlet {
             id = Integer.parseInt(request.getParameter("id"));
             S.setCodigo_S(id);
             dao.modificar(S);
-            response.sendRedirect("Servicio?accion=listar");
+            response.sendRedirect("srvServicio?accion=listar");
         }catch(Exception e){
             request.setAttribute("msje", "No se pudo Modificar.");
             request.setAttribute("Servicio", S);
@@ -176,35 +171,61 @@ public class srvServicio extends HttpServlet {
             this.presentarFormulario(request, response);
         }   
     }
-     
-    
-        private void eliminar(HttpServletRequest request, HttpServletResponse response) {
+        
+    private void eliminar(HttpServletRequest request, HttpServletResponse response) {
         DAOServicio dao;
         int id;
         id = Integer.parseInt(request.getParameter("id"));
         try {
             dao = new DAOServicio();
             dao.cambiarEstado(id);
-            response.sendRedirect("Servicio?accion=listar");
+            response.sendRedirect("srvServicio?accion=listar");
         } catch (Exception e) {
             request.setAttribute("msje", "no se pudo Eliminar");          
         }
     }
         
-      private Servicio recuperarServicio(HttpServletRequest request) {
+    private Servicio recuperarServicio(HttpServletRequest request) {
         Servicio S = new Servicio();
         
-        S.setCodigo_TS(Integer.parseInt(request.getParameter("txtCodigo")) );
-        S.setCodigo_PR(Integer.parseInt(request.getParameter("txtCodigo")) );
+        S.setCodigo_TS(Integer.parseInt(request.getParameter("txtTipoServicio")));
+        S.setCodigo_PR(Integer.parseInt(request.getParameter("txtProveedor")));
         S.setNombre_S(request.getParameter("txtNombre"));
         S.setDescripcion_S(request.getParameter("txtDescripcion"));
         S.setPrecio_S(request.getParameter("txtPrecio"));
-     
-        
+            
         return S;
     }
+
+    private void crearBuscar(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            this.getServletConfig().getServletContext().
+            getRequestDispatcher("/WEB-INF/paginas/buscarservicio.jsp").
+            forward(request, response);
+                         
+        } catch(Exception e){
+            request.setAttribute("Error", "No se pudo mostrar los servicios");
+        }
+    }
+
+    private void buscar(HttpServletRequest request, HttpServletResponse response) {
+        DAOServicio dao = new DAOServicio();
+        List<Servicio> servicio = null;
+        String nombre;
         
-               
-    }  
+        request.setAttribute("nombre", request.getParameter("txtBuscar"));
+        nombre = String.valueOf(request.getAttribute("nombre"));
+        try {
+            servicio = dao.buscarNombre(nombre);
+            //este se usa pa enviar datos a editarPersona.jsp
+            request.setAttribute("ser", servicio);  
+            request.setAttribute("ban", nombre);  
+            crearBuscar(request, response);
+            
+        } catch (Exception e) {
+            request.setAttribute("Error", "No se pudo encontrar el cliente");
+        } 
+    }
+}  
    
   

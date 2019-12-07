@@ -29,7 +29,7 @@ public class DAOCuentaBancaria extends conexion{
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos("SELECT codigo_B, codigo_PR, codigo_P, numeroCuenta_B, tipoCuenta_B, fechaVencimiento_B, clave_B, estado_B, saldo_B "
-                    + " FROM CuentaBancaria CB "
+                    + " FROM CuentaBancario CB "
                     + "ORDER BY tipoCuenta_B");
             CuentaBancaria = new ArrayList<>();
             while (rs.next() == true) {

@@ -1,21 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
-/**
- *
- * @author Lorena
- */
 import accesodatos.conexion;
 import entidades.Proveedor;
-
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class DAOProveedor extends conexion{
 public void registrar(Proveedor PR) throws Exception {

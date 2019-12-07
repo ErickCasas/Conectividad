@@ -1,20 +1,20 @@
+
 package Servlets;
 
-import dao.DAOComprobante;
-import dao.DAOTipoCliente;
-import entidades.TipoCliente;
 import java.io.IOException;
-import java.io.PrintWriter;
+import dao.DAOCuentaBancaria;
+import entidades.CuentaBancaria;
 import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "srvTipoCliente", urlPatterns = {"/TipoCliente"})
-public class srvTipoCliente extends HttpServlet {
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+@WebServlet(name = "SrvCuentaBancaria", urlPatterns = {"/CuentaBancaria"})
+public class SrvCuentaBancaria extends HttpServlet {
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String accion = request.getParameter("accion");
         switch(accion){
@@ -24,21 +24,27 @@ public class srvTipoCliente extends HttpServlet {
             case "crear": 
                 this.presentarFormulario(request, response);
                 break;
-            case "editar":
+            /*case "editar":
                 this.presentarFormularioEditar(request, response);
                 break;
             case "modificar":
                 this.modificar(request, response);
-                break;
+                break;*/
             case "registrar": 
                 this.registrar(request, response);
                 break;
             case "eliminar":
                 this.eliminar(request, response);
                 break;
-
+            /*case "crearBuscar":
+                this.crearBuscar(request, response); 
+                break;            
+            case "buscar":
+                this.buscar(request, response); 
+                break;*/
         }    
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -78,114 +84,77 @@ public class srvTipoCliente extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    
+
     private void listar(HttpServletRequest request, HttpServletResponse response) {
-        DAOTipoCliente dao = new DAOTipoCliente();
-        List<TipoCliente> TipoCliente = null;
+        DAOCuentaBancaria dao = new DAOCuentaBancaria();
+        List<CuentaBancaria> cuentasbancarias = null;
               
         try {
-            TipoCliente = dao.listar();
-            request.setAttribute("TC", TipoCliente);
+            cuentasbancarias = dao.listar();
+            request.setAttribute("cb", cuentasbancarias);
             this.getServletConfig().getServletContext().
-                    getRequestDispatcher("/WEB-INF/paginas/tipoCliente.jsp").
+                    getRequestDispatcher("/WEB-INF/paginas/cuentabancaria.jsp").
                     forward(request, response);
         } catch(Exception e){
             System.out.println("Error" + e.getMessage());
-            request.setAttribute("Error", "No se pudo listar el tipo cliente");
+            request.setAttribute("Error", "No se pudo listar las cuentas bancarias");
         }
     }
 
-        private void presentarFormulario(HttpServletRequest request, HttpServletResponse response) {
+    private void presentarFormulario(HttpServletRequest request, HttpServletResponse response) {
         try {
             this.getServletConfig().getServletContext().
-                    getRequestDispatcher("/WEB-INF/paginas/tipoClienteNuevo.jsp").
+                    getRequestDispatcher("/WEB-INF/paginas/cuentabancarianuevo.jsp").
                     forward(request, response);
         } catch(Exception e){
             request.setAttribute("Error", "No se pudo mostrar el formulario");
         }
     }
 
-         private void presentarFormularioEditar(HttpServletRequest request, HttpServletResponse response) {
-        DAOTipoCliente dao;
-        TipoCliente TC;
-        try {
-            dao = new DAOTipoCliente();
-            int id = Integer.parseInt(request.getParameter("id"));
-            TC = dao.leer(id);
-            request.setAttribute("TipoCliente", TC);
-            this.getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/paginas/editarTipoCliente.jsp").forward(request, response);
-
-        } catch (Exception e) {
-            System.out.println("Error" + e.getMessage());
-            request.setAttribute("error", "no se pudo listar los tipo cliente");
-        }
-
-    }
-
-        private void modificar(HttpServletRequest request, HttpServletResponse response) {
-        DAOTipoCliente dao;
-        TipoCliente TC;
-        TC = this.recuperarTipoCliente(request);
-        dao = new DAOTipoCliente();
-        try {
-            int id = Integer.parseInt(request.getParameter("id"));
-            TC.setCodigo_TC(id);
-            dao.modificar(TC);
-            response.sendRedirect("TipoCliente?accion=listar");
-        } catch (Exception e) {
-            request.setAttribute("msje", "no se pudo modificar");
-            request.setAttribute("TipoCliente", TC);
-            this.presentarFormulario(request, response);
-        }
-    }
-
+    private void registrar(HttpServletRequest request, HttpServletResponse response) {
+        DAOCuentaBancaria dao;
+        CuentaBancaria cb;
         
-        
-      private void registrar(HttpServletRequest request, HttpServletResponse response) {
-        DAOTipoCliente dao;
-        TipoCliente TC;
-        
-        TC = this.recuperarTipoCliente(request);
-        dao = new DAOTipoCliente();
+        cb = this.recuperarCuentaBancaria(request);
+        dao = new DAOCuentaBancaria();
         try {
-            dao.registrar(TC);
-            response.sendRedirect("TipoCliente?accion=listar");
+            dao.registrar(cb);
+            response.sendRedirect("CuentaBancaria?accion=listar");
         }catch(Exception e){
             request.setAttribute("msje", "No se pudo registrar.");
-            request.setAttribute("TipoCliente", TC);
+            request.setAttribute("CuentaBancaria", cb);
             
             this.presentarFormulario(request, response);
         }   
-    } 
-      
-           
-      private void eliminar(HttpServletRequest request, HttpServletResponse response) {
-        DAOTipoCliente dao;
+    }
+
+    private void eliminar(HttpServletRequest request, HttpServletResponse response) {
+         DAOCuentaBancaria dao;
         try {
             int id = Integer.parseInt(request.getParameter("id"));
-            dao = new DAOTipoCliente();
+            dao = new DAOCuentaBancaria();
             dao.eliminar(id);
-            response.sendRedirect("TipoCliente?accion=listar");
+            response.sendRedirect("CuentaBancaria?accion=listar");
         } catch (Exception e) {
             request.setAttribute("msje", "no se pudo Eliminar");
             this.presentarFormulario(request, response);
         }
     }
-        
-
- private TipoCliente recuperarTipoCliente(HttpServletRequest request) {
-        TipoCliente TC = new TipoCliente();
-        TC.setCodigo_TC(Integer.parseInt(request.getParameter("txtCodigo")));
-        TC.setDescripcion_TC(request.getParameter("txtDescripcion"));
+    
+    private CuentaBancaria recuperarCuentaBancaria(HttpServletRequest request) {
+        CuentaBancaria cb = new CuentaBancaria();
+        cb.setCodigo_PR(Integer.parseInt(request.getParameter("txtCodigoProveedor")));
+        cb.setCodigo_P(Integer.parseInt(request.getParameter("txtCodigoPago")));
+        cb.setNumeroCuenta_B(request.getParameter("txtNumeroCuenta"));
+        cb.setTipoCuenta_B(request.getParameter("txtTipoCuenta"));
+        cb.setFechaVencimiento_B(request.getParameter("txtFechaVencimiento"));
+        cb.setClave_B(request.getParameter("txtClave"));
+        cb.setSaldo_B(Double.parseDouble(request.getParameter("txtSaldo")));
         if(request.getParameter("chkEstado")!= null){
-            TC.setEstado_TC(true);
+            cb.setEstado_B(true);
         }else{
-            TC.setEstado_TC(false);
+            cb.setEstado_B(false);
         }
-        return TC;
-    }        
-        
-        
-        
+        return cb;
+    }
 }

@@ -23,8 +23,6 @@
             <div>Apellidos    : <input type="text" name="txtApellido" value="${cliente.apellido_C}"></div>
             <div>Dirección    : <input type="text" name="txtDireccion" value="${cliente.direccion_C}"></div>
             <div>Teléfono     : <input type="text" name="txtTelefono" value="${cliente.telefono_C}"></div>
-            <div>Estado       : <input type="checkbox" name="chkEstado" 
-                                 ${cliente.estado_C == true?'checked':'unchecked'}></div>
             <div><input type="submit" name="btnRegistrar" value="Registrar"></div>
         </form>
     </body>

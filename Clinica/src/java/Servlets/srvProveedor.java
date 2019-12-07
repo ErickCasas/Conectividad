@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Servlets;
 
 import dao.DAOProveedor;
@@ -16,11 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Lorena
- */
-@WebServlet(name = "srvProveedor", urlPatterns = {"/srvProveedor"})
+@WebServlet(name = "srvProveedor", urlPatterns = {"/Proveedor"})
 public class srvProveedor extends HttpServlet {
 
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -50,8 +41,7 @@ public class srvProveedor extends HttpServlet {
             case "buscar": this.buscar(request, response); 
                             break;
         }    
-
-  }
+    }
   
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -102,7 +92,7 @@ public class srvProveedor extends HttpServlet {
             Proveedor = dao.listar();
             request.setAttribute("PR", Proveedor);
             this.getServletConfig().getServletContext().
-                    getRequestDispatcher("/WEB-INF/paginas/Proveedor.jsp").
+                    getRequestDispatcher("/WEB-INF/paginas/proveedor.jsp").
                     forward(request, response);
         } catch(Exception e){
             System.out.println("Error" + e.getMessage());
@@ -113,7 +103,7 @@ public class srvProveedor extends HttpServlet {
     private void presentarFormulario(HttpServletRequest request, HttpServletResponse response) {
         try {
             this.getServletConfig().getServletContext().
-                    getRequestDispatcher("/WEB-INF/paginas/Proveedor.jsp").
+                    getRequestDispatcher("/WEB-INF/paginas/proveedornuevo.jsp").
                     forward(request, response);
         } catch(Exception e){
             request.setAttribute("Error", "No se pudo mostrar el Proveedor");
@@ -128,7 +118,7 @@ public class srvProveedor extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             PR = dao.leer(id);
             request.setAttribute("Proveedor", PR);
-            this.getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/paginas/editarProveedor.jsp").forward(request, response);
+            this.getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/paginas/editarproveedor.jsp").forward(request, response);
 
         } catch (Exception e) {
             System.out.println("Error" + e.getMessage());
@@ -136,9 +126,8 @@ public class srvProveedor extends HttpServlet {
         }
 
     }
-     
-     
-     private void modificar(HttpServletRequest request, HttpServletResponse response) {
+          
+    private void modificar(HttpServletRequest request, HttpServletResponse response) {
         DAOProveedor dao;
         Proveedor PR;
         PR = this.recuperarProveedor(request);
@@ -147,7 +136,7 @@ public class srvProveedor extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             PR.setCodigo_PR(id);
             dao.modificar(PR);
-            response.sendRedirect("medico?accion=listar");
+            response.sendRedirect("proveedor?accion=listar");
         } catch (Exception e) {
             request.setAttribute("msje", "no se pudo modificar");
             request.setAttribute("Proveedor", PR);
@@ -214,9 +203,7 @@ public class srvProveedor extends HttpServlet {
             request.setAttribute("Error", "No se pudo encontrar la mascota");
         }  
     }
-    
-    
-       
+          
     private Proveedor recuperarProveedor(HttpServletRequest request) {
         Proveedor PR = new Proveedor();
         

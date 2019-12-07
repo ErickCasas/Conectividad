@@ -77,8 +77,7 @@ public class DAOEntidadBancaria extends conexion{
         String sql = "UPDATE EntidadBancaria SET "               
                 + "nombre_E = '" + EB.getNombre_E() + "', "
                 + "direccion_E='" + EB.getDireccion_E()+ "', "
-                + "ruc_E='" + EB.getRuc_E()+ "' "
-           
+                + "ruc_E='" + EB.getRuc_E()+ "' "          
                 + " WHERE codigo_E=" + EB.getCodigo_E()+ ";";
         try {
             this.conectar(true);

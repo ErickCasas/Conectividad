@@ -12,7 +12,9 @@
             <div>${msje}</div>
         </c:if>
         <form action="TipoUsuario?accion=modificar&id=${TipoUsuario.codigo_TU}" method="post">
-            <div>Descripcion : <input type="text" name="txtDescripcion" value="${TipoUsuario.descripcion_TU}"></div>      
+            <div>Descripcion : <input type="text" name="txtDescripcion" value="${TipoUsuario.descripcion_TU}"></div>
+            <div>Estado      : <input type="checkbox" name="chkEstado" 
+                                 ${cliente.estado_TU == true?'checked':'unchecked'}></div>
             <div><input type="submit" name="btnRegistrar" value="EDITAR"></div>         
         </form>
     </body>

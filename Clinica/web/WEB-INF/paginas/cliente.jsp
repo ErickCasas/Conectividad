@@ -8,8 +8,8 @@
     </head>
     <body>
         <h1>Lista de Clientes</h1>
-        <a href="cliente?accion=crear">Nuevo Cliente</a>       
-        <a href="cliente?accion=crearBuscar">Buscar Cliente</a>
+        <a href="Cliente?accion=crear">Nuevo Cliente</a>       
+        <a href="Cliente?accion=crearBuscar">Buscar Cliente</a>
       
         <table>
             <tr>
@@ -17,7 +17,7 @@
                 <td>Codigo Tipo Cliente</td>
                 <td>Nro Documento</td>
                 <td>Nombre</td>
-                <td>Apellidos</td>     
+                <td>Apellidos</td>
                 <td>Opciones</td>
             </tr>
             <c:forEach items="${cli}" var="cliente"  varStatus="iteracion">

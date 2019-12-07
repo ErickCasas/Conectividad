@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DAOTipoComprobante extends conexion {
     public void registrar(TipoComprobante TCO) throws Exception {
-        String sql = "INSERT INTO cliente( descripcion_TCO, estado_TCO) "
+        String sql = "INSERT INTO tipocomprobante( descripcion_TCO, estado_TCO) "
                 + " VALUES ( '" + TCO.getDescripcion_TCO()
                 + "', " + (TCO.isEstado_TCO()== true ? "1" : "0") + ")";
         try {
