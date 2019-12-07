@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta http-equiv="Content-Language" content="en">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>TIPO USUARIOS</title>
+        <title>USUARIOS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
         <meta name="description" content="Tables are the backbone of almost all web applications.">
         <meta name="msapplication-tap-highlight" content="no">
@@ -431,16 +431,12 @@
                                 <div class="page-title-heading">
                                         <img width="50" class="" src="Imagenes/entidad1.png" alt="">
                                         
-                                    <div style= "margin-left: 30px;font-size: 25px">TIPO USUARIOS
+                                    <div style= "margin-left: 30px;font-size: 25px">USUARIOS
                                         <div class="page-title-subheading">
                                             <div style= "margin-left: 700px;font-size: 25px">
-                                             <td> <a href="TipoUsuario?accion=crear">  <button class="mb-2 mr-2 btn btn-warning">NUEVO USUARIO
-                                                     </button> </a
-                                             </td>
+                                             <td> <a href="EntidadBancaria?accion=crear">  <button class="mb-2 mr-2 btn btn-warning">NUEVO USUARIO
+                                                     </button> </a> </td>
                                              
-                                             <td> <a href="TipoUsuario?accion=crear">  <button class="mb-2 mr-2 btn btn-warning">BUSCAR USUARIO
-                                                     </button> </a
-                                             </td>
                                               </div> 
                                         </div>
                                     </div>
@@ -505,8 +501,7 @@
                                                     <th style="width: 20%">CODIGO TIPO USUARIO</th>
                                                     <th style="width: 20%">CODIGO CLIENTE</th>
                                                     <th style="width: 20%">CODIGO PAGO</th>
-                                                    <th style="width: 30%">DESCRIPCION</th>
-                                              
+                                                    <th style="width: 30%">NOMBRE</th>
                                                     
                                                     
                                                 </tr>
@@ -522,12 +517,13 @@
                                                                default="No se encontró"/></td>
                                                         <td><c:out value="${tipousuario.codigo_TU}"
                                                                default="No se encontró"/></td>
-                                                       <td><c:out value="${tipousuario.descripcion_TU}"
+                                                        
+                                                         <td><c:out value="${tipousuario.descripcion_TU}"
                                                                default="No se encontró"/></td>
-                                                         <td> <a  href="TipoUsuario?accion=editar&id=${tipousuario.codigo_TU}" ><button class="mb-2 mr-2 btn btn-warning">editar
-                                                            </button>  </a> <a  href="TipoUsuario?accion=eliminar&id=${tipousuario.codigo_TU}" > <button class="mb-2 mr-2 btn btn-warning"> Estado
-                                                       </button>  </a>
-                                                         </td>
+                                                         
+                                                        <td> <a href="TipoUsuario?accion=editar&id=${tipousuario.codigo_TU}" ><button class="mb-2 mr-2 btn btn-warning">editar
+                                        </button>  </a> <a href="TipoUsuario?accion=eliminar&id=${tipousuario.codigo_TU}" > <button class="mb-2 mr-2 btn btn-warning">Cambiar Estado
+                                        </button>  </a></td>
                                                     </tr>
 
                                              
