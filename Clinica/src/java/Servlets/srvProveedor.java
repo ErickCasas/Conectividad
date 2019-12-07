@@ -124,7 +124,6 @@ public class srvProveedor extends HttpServlet {
             System.out.println("Error" + e.getMessage());
             request.setAttribute("error", "no se pudo listar los Proveedores");
         }
-
     }
           
     private void modificar(HttpServletRequest request, HttpServletResponse response) {
