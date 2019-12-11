@@ -36,10 +36,12 @@ public class srvProveedor extends HttpServlet {
             case "eliminar":
                 this.eliminar(request, response);
                 break;
-            case "crearBuscar": this.crearBuscar(request, response); 
-                            break;            
-            case "buscar": this.buscar(request, response); 
-                            break;
+            case "crearBuscar":
+                this.crearBuscar(request, response); 
+                break;            
+            case "buscar":
+                this.buscar(request, response); 
+                break;
         }    
     }
   
@@ -81,9 +83,7 @@ public class srvProveedor extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    
-    
+       
     private void listar(HttpServletRequest request, HttpServletResponse response) {
         DAOProveedor dao = new DAOProveedor();
         List<Proveedor> Proveedor = null;
@@ -96,7 +96,7 @@ public class srvProveedor extends HttpServlet {
                     forward(request, response);
         } catch(Exception e){
             System.out.println("Error" + e.getMessage());
-            request.setAttribute("Error", "No se pudo listar la lista de los proveedores");
+            request.setAttribute("Error", "No se pudo listar los proveedores");
         }
     }
 
@@ -135,7 +135,7 @@ public class srvProveedor extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             PR.setCodigo_PR(id);
             dao.modificar(PR);
-            response.sendRedirect("proveedor?accion=listar");
+            response.sendRedirect("Proveedor?accion=listar");
         } catch (Exception e) {
             request.setAttribute("msje", "no se pudo modificar");
             request.setAttribute("Proveedor", PR);
@@ -206,17 +206,13 @@ public class srvProveedor extends HttpServlet {
     private Proveedor recuperarProveedor(HttpServletRequest request) {
         Proveedor PR = new Proveedor();
         
-        PR.setRazonSocial_PR(request.getParameter("txtRazonSocial_PR"));
-        PR.setNombre_PR(request.getParameter("txtNombre_PR"));
-        PR.setRuc_PR(request.getParameter("txtRuc_PR"));
-        PR.setDireccion_PR(request.getParameter("txtDireccion_PR"));
-        PR.setTelefono_PR(request.getParameter("txtTelefono_PR"));
+        PR.setRazonSocial_PR(request.getParameter("txtRazonSocial"));
+        PR.setNombre_PR(request.getParameter("txtNombre"));
+        PR.setRuc_PR(request.getParameter("txtRuc"));
+        PR.setDireccion_PR(request.getParameter("txtDireccion"));
+        PR.setTelefono_PR(request.getParameter("txtTelefono"));
         
-        if(request.getParameter("chkEstado")!= null){
-            PR.setEstado_PR(true);
-        }else{
-            PR.setEstado_PR(false);
-        }
+      
         return PR;
     }
 }

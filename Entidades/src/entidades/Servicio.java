@@ -8,7 +8,25 @@ public class Servicio{
     private String descripcion_S;
     private String precio_S;
     private Boolean estado;
+    private TipoServicio TS;
+    private Proveedor PR;
 
+    public Proveedor getPR() {
+        return PR;
+    }
+
+    public void setPR(Proveedor PR) {
+        this.PR = PR;
+    }
+
+    public TipoServicio getTS() {
+        return TS;
+    }
+
+    public void setTS(TipoServicio TS) {
+        this.TS = TS;
+    }
+    
     public int getCodigo_S() {
         return codigo_S;
     }

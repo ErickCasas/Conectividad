@@ -9,6 +9,15 @@ public class Cliente{
     private String direccion_C;
     private String telefono_C;
     private Boolean estado_C;
+    private TipoCliente TC;
+
+    public TipoCliente getTC() {
+        return TC;
+    }
+
+    public void setTC(TipoCliente TC) {
+        this.TC = TC;
+    }
 
     public int getCodigo_C() {
         return codigo_C;

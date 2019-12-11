@@ -1,11 +1,13 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Servlets;
 
 import java.io.IOException;
-import dao.DAOCliente;
-import entidades.Cliente;
-
-import dao.DAOTipoCliente;
-import entidades.TipoCliente;
+import dao.DAOContrato;
+import entidades.Contrato;
 import java.util.List;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,8 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "SrvCliente", urlPatterns = {"/Cliente"})
-public class SrvCliente extends HttpServlet {
+@WebServlet(name = "SrvContrato", urlPatterns = {"/contrato"})
+public class SrvContrato extends HttpServlet {
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String accion = request.getParameter("accion");
@@ -38,12 +41,10 @@ public class SrvCliente extends HttpServlet {
             case "eliminar":
                 this.eliminar(request, response);
                 break;
-            case "crearBuscar":
-                this.crearBuscar(request, response); 
-                break;            
-            case "buscar":
-                this.buscar(request, response); 
-                break;
+            /*case "crearBuscar": this.crearBuscar(request, response); 
+                            break;            
+            case "buscar": this.buscar(request, response); 
+                            break;*/
         }    
     }
     
@@ -87,28 +88,23 @@ public class SrvCliente extends HttpServlet {
     }// </editor-fold>
 
     private void listar(HttpServletRequest request, HttpServletResponse response) {
-        DAOCliente dao = new DAOCliente();
-        List<Cliente> clientes = null;
+        DAOContrato dao = new DAOContrato();
+        List<Contrato> contratos = null;
               
         try {
-            clientes = dao.listar();
-            request.setAttribute("cli", clientes);
+            contratos = dao.listar();
+            request.setAttribute("con", contratos);
             this.getServletConfig().getServletContext().
-                    getRequestDispatcher("/WEB-INF/paginas/cliente.jsp").
+                    getRequestDispatcher("/WEB-INF/paginas/contrato.jsp").
                     forward(request, response);
         } catch(Exception e){
             System.out.println("Error" + e.getMessage());
-            request.setAttribute("Error", "No se pudo listar los clientes");
+            request.setAttribute("Error", "No se pudo listar las clientes");
         }
     }
 
     private void presentarFormulario(HttpServletRequest request, HttpServletResponse response) {
-        DAOTipoCliente dao = new DAOTipoCliente();
-        List<TipoCliente> lista = null;
-        
         try {
-            lista = dao.listar();
-            request.setAttribute("tipoC", lista);
             this.getServletConfig().getServletContext().
                     getRequestDispatcher("/WEB-INF/paginas/clientenuevo.jsp").
                     forward(request, response);
@@ -118,111 +114,111 @@ public class SrvCliente extends HttpServlet {
     }
 
     private void presentarFormularioEditar(HttpServletRequest request, HttpServletResponse response) {
-        DAOCliente dao;
-        Cliente cl;
+        DAOContrato dao;
+        Contrato co;
         try {
-            dao = new DAOCliente();
+            dao = new DAOContrato();
             int id = Integer.parseInt(request.getParameter("id"));
-            cl = dao.leer(id);
-            request.setAttribute("Cliente", cl);
-            this.getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/paginas/editarcliente.jsp").forward(request, response);
+            co = dao.leer(id);
+            request.setAttribute("contrato", co);
+            this.getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/paginas/editarcontrato.jsp").forward(request, response);
 
         } catch (Exception e) {
             System.out.println("Error" + e.getMessage());
-            request.setAttribute("error", "no se pudo listar las mascotas");
+            request.setAttribute("error", "no se pudo listar los contratos");
         }
+
     }
 
     private void modificar(HttpServletRequest request, HttpServletResponse response) {
-        DAOCliente dao;
-        Cliente cl;
-        cl = this.recuperarCliente(request);
-        dao = new DAOCliente();
+        DAOContrato dao;
+        Contrato co;
+        co = this.recuperarContrato(request);
+        dao = new DAOContrato();
         try {
             int id = Integer.parseInt(request.getParameter("id"));
-            cl.setCodigo_C(id);
-            dao.modificar(cl);
-            response.sendRedirect("Cliente?accion=listar");
+            co.setCodigo_C(id);
+            dao.modificar(co);
+            response.sendRedirect("contrato?accion=listar");
         } catch (Exception e) {
             request.setAttribute("msje", "no se pudo modificar");
-            request.setAttribute("cliente", cl);
+            request.setAttribute("contrato", co);
             this.presentarFormulario(request, response);
         }
     }
 
     private void registrar(HttpServletRequest request, HttpServletResponse response) {
-        DAOCliente dao;
-        Cliente cl;
+        DAOContrato dao;
+        Contrato co;
         
-        cl = this.recuperarCliente(request);
-        dao = new DAOCliente();
+        co = this.recuperarContrato(request);
+        dao = new DAOContrato();
         try {
-            dao.registrar(cl);
-            response.sendRedirect("Cliente?accion=listar");
+            dao.registrar(co);
+            response.sendRedirect("contrato?accion=listar");
         }catch(Exception e){
             request.setAttribute("msje", "No se pudo registrar.");
-            request.setAttribute("cliente", cl);
+            request.setAttribute("contrato", co);
             
             this.presentarFormulario(request, response);
         }   
     }
 
     private void eliminar(HttpServletRequest request, HttpServletResponse response) {
-        DAOCliente dao;
+        DAOContrato dao;
         try {
             int id = Integer.parseInt(request.getParameter("id"));
-            dao = new DAOCliente();
+            dao = new DAOContrato();
             dao.eliminar(id);
-            response.sendRedirect("Cliente?accion=listar");
+            response.sendRedirect("contrato?accion=listar");
         } catch (Exception e) {
             request.setAttribute("msje", "no se pudo Eliminar");
             this.presentarFormulario(request, response);
         }
     }
 
-    private void crearBuscar(HttpServletRequest request, HttpServletResponse response) {
+    /*private void crearBuscar(HttpServletRequest request, HttpServletResponse response) {
         try {
             this.getServletConfig().getServletContext().
-            getRequestDispatcher("/WEB-INF/paginas/buscarCliente.jsp").
+            getRequestDispatcher("/WEB-INF/paginas/buscarContrato.jsp").
             forward(request, response);
                          
         } catch(Exception e){
-            request.setAttribute("Error", "No se pudo mostrar la categoria");
+            request.setAttribute("Error", "No se pudo mostrar el contrato");
         }
     }
 
     private void buscar(HttpServletRequest request, HttpServletResponse response) {
-        DAOCliente dao = new DAOCliente();
-        List<Cliente> clientes = null;
+        DAOContrato dao = new DAOContrato();
+        List<Contrato> contratos = null;
         String nroDoc;
         
         request.setAttribute("nroDocCl", request.getParameter("txtBuscar"));
         nroDoc = String.valueOf(request.getAttribute("nroDocCl"));
         try {
-            clientes = dao.buscarNroDocumento(nroDoc);
+            contratos = dao.buscarNroDocumento(nroDoc);
             //este se usa pa enviar datos a editarPersona.jsp
-            request.setAttribute("cli", clientes);  
+            request.setAttribute("con", contratos);  
             request.setAttribute("ban", nroDoc);  
             crearBuscar(request, response);
             
         } catch (Exception e) {
-            request.setAttribute("Error", "No se pudo encontrar el cliente");
+            request.setAttribute("Error", "No se pudo encontrar el contrato");
         }  
-    }
+    }*/
 
-    private Cliente recuperarCliente(HttpServletRequest request) {
-        Cliente cl = new Cliente();
-        cl.setCodigo_TC(Integer.parseInt(request.getParameter("cboTipoCliente")));
-        cl.setNroDocumento_C(request.getParameter("txtNroDocumento"));
-        cl.setNombre_C(request.getParameter("txtNombre"));
-        cl.setApellido_C(request.getParameter("txtApellido"));
-        cl.setDireccion_C(request.getParameter("txtDireccion"));
-        cl.setTelefono_C(request.getParameter("txtTelefono"));
+    private Contrato recuperarContrato(HttpServletRequest request) {
+        Contrato co = new Contrato();
+        co.setCodigo_C(Integer.parseInt(request.getParameter("cboCodigoCliente")));
+        co.setCodigo_S(Integer.parseInt(request.getParameter("cboCodigoServicio")));
+        co.setFechaInicio_CONT(request.getParameter("txtFechaInicio"));
+        co.setFechaFin_CONT(request.getParameter("txtFechaFin"));
+        co.setTipoContrato_CONT(request.getParameter("cboTipoContrato"));
         if(request.getParameter("chkEstado")!= null){
-            cl.setEstado_C(true);
+            co.setEstado_CONT(true);
         }else{
-            cl.setEstado_C(false);
+            co.setEstado_CONT(false);
         }
-        return cl;
+        return co;
     }
 }

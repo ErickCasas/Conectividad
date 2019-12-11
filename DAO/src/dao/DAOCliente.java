@@ -1,6 +1,8 @@
 package dao;
+
 import accesodatos.conexion;
 import entidades.Cliente;
+import entidades.TipoCliente;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +29,8 @@ public class DAOCliente extends conexion{
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT codigo_TC, nroDocumento_C, nombre_C, apellido_C "
-                    + " FROM cliente C "
-                    + "ORDER BY nombre_C");
+            rs = this.ejecutarOrdenDatos("SELECT * FROM cliente C INNER JOIN tipocliente TC "
+            + " ON C.codigo_TC = TC.codigo_TC");
             clientes = new ArrayList<>();
             while (rs.next() == true) {
                 c = new Cliente();
@@ -41,6 +42,8 @@ public class DAOCliente extends conexion{
                 c.setDireccion_C(rs.getString("direccion_C"));
                 c.setTelefono_C(rs.getString("telefono_C"));
                 c.setEstado_C(rs.getBoolean("estado_C"));
+                c.setTC(new TipoCliente());
+                c.getTC().setDescripcion_TC(rs.getString("descripcion_TC"));
                 clientes.add(c);
             }
             rs.close();
@@ -85,8 +88,7 @@ public class DAOCliente extends conexion{
                 + "nombre_C='" + c.getNombre_C() + "', "
                 + "apellido_C='" + c.getApellido_C() + "', "
                 + "direccion_C='" + c.getDireccion_C() + "', "
-                + "telefono_C='" + c.getTelefono_C() + "', "
-                + "estado_TU =" + (c.isEstado_C()== true ? "1" : "0") + " "
+                + "telefono_C='" + c.getTelefono_C() + "' "
                 + " WHERE nroDocumento_C=" + c.getNroDocumento_C()+ ";";
         try {
             this.conectar(true);

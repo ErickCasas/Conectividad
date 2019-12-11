@@ -1,7 +1,11 @@
 package Servlets;
 
 import dao.DAOComprobante;
+import dao.DAOContrato;
+import dao.DAOTipoComprobante;
 import entidades.Comprobante;
+import entidades.Contrato;
+import entidades.TipoComprobante;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -109,7 +113,15 @@ public class SrvComprobante extends HttpServlet {
     }
 
     private void presentarFormulario(HttpServletRequest request, HttpServletResponse response) {
+        DAOContrato dao = new DAOContrato();
+        DAOTipoComprobante daoT = new DAOTipoComprobante();
+        List<Contrato> lista;
+        List<TipoComprobante> listaP;
         try {
+            lista = dao.listar();
+            listaP = daoT.listar();
+            request.setAttribute("con", lista);
+            request.setAttribute("tco", listaP);
             this.getServletConfig().getServletContext().
                     getRequestDispatcher("/WEB-INF/paginas/comprobantenuevo.jsp").
                     forward(request, response);
@@ -178,8 +190,9 @@ public class SrvComprobante extends HttpServlet {
 
     private Comprobante recuperarCliente(HttpServletRequest request) {
         Comprobante com = new Comprobante();
-        com.setCodigo_CONT(Integer.parseInt(request.getParameter("txtContrato")));
-        com.setCodigo_TCO(Integer.parseInt(request.getParameter("txtTipoContrato")));
+        
+        com.setCodigo_CONT(Integer.parseInt(request.getParameter("cboContrato")));
+        com.setCodigo_TCO(Integer.parseInt(request.getParameter("cboTipoComprobante")));
         com.setMonto_COMP(Double.parseDouble(request.getParameter("txtMonto")));
         if(request.getParameter("chkEstado")!= null){
             com.setEstado_COMP(true);

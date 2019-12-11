@@ -1,7 +1,11 @@
 package Servlets;
 
+import dao.DAOProveedor;
 import dao.DAOServicio;
+import dao.DAOTipoServicio;
+import entidades.Proveedor;
 import entidades.Servicio;
+import entidades.TipoServicio;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -127,7 +131,15 @@ public class srvServicio extends HttpServlet {
     }
     
     private void presentarFormulario(HttpServletRequest request, HttpServletResponse response) {
+        DAOTipoServicio dao = new DAOTipoServicio();
+        DAOProveedor daoP = new DAOProveedor();
+        List<TipoServicio> lista;
+        List<Proveedor> listaP;
         try {
+            lista = dao.listar();
+            listaP = daoP.listar();
+            request.setAttribute("tipoS", lista);
+            request.setAttribute("proveedor", listaP);
             this.getServletConfig().getServletContext().
                     getRequestDispatcher("/WEB-INF/paginas/servicioNuevo.jsp").
                     forward(request, response);
@@ -188,8 +200,8 @@ public class srvServicio extends HttpServlet {
     private Servicio recuperarServicio(HttpServletRequest request) {
         Servicio S = new Servicio();
         
-        S.setCodigo_TS(Integer.parseInt(request.getParameter("txtTipoServicio")));
-        S.setCodigo_PR(Integer.parseInt(request.getParameter("txtProveedor")));
+        S.setCodigo_TS(Integer.parseInt(request.getParameter("cboTipoServicio")));
+        S.setCodigo_PR(Integer.parseInt(request.getParameter("cboProveedor")));
         S.setNombre_S(request.getParameter("txtNombre"));
         S.setDescripcion_S(request.getParameter("txtDescripcion"));
         S.setPrecio_S(request.getParameter("txtPrecio"));
@@ -201,8 +213,7 @@ public class srvServicio extends HttpServlet {
         try {
             this.getServletConfig().getServletContext().
             getRequestDispatcher("/WEB-INF/paginas/buscarservicio.jsp").
-            forward(request, response);
-                         
+            forward(request, response);                       
         } catch(Exception e){
             request.setAttribute("Error", "No se pudo mostrar los servicios");
         }
@@ -220,8 +231,7 @@ public class srvServicio extends HttpServlet {
             //este se usa pa enviar datos a editarPersona.jsp
             request.setAttribute("ser", servicio);  
             request.setAttribute("ban", nombre);  
-            crearBuscar(request, response);
-            
+            crearBuscar(request, response);          
         } catch (Exception e) {
             request.setAttribute("Error", "No se pudo encontrar el cliente");
         } 

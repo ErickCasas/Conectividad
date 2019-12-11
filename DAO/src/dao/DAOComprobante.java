@@ -1,5 +1,8 @@
 package dao;
+
 import accesodatos.conexion;
+import entidades.Contrato;
+import entidades.TipoComprobante;
 import entidades.Comprobante;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -26,9 +29,9 @@ public class DAOComprobante extends conexion{
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT codigo_COMP, codigo_CONT, codigo_TCO , monto_COMP, estado_COMP "
-                    + " FROM Comprobante C "
-                    + "ORDER BY monto_COMP");
+            rs = this.ejecutarOrdenDatos("SELECT * from comprobante C INNER JOIN tipocomprobante TC " 
+            + " ON C.codigo_TCO = TC.codigo_TCO"
+            + " INNER JOIN contrato CO ON C.codigo_CONT = CO.codigo_CONT");
             comprobantes = new ArrayList<>();
             while (rs.next() == true) {
                 c = new Comprobante();
@@ -37,6 +40,11 @@ public class DAOComprobante extends conexion{
                 c.setCodigo_TCO(rs.getInt("codigo_TCO"));
                 c.setMonto_COMP(rs.getDouble("monto_COMP"));
                 c.setEstado_COMP(rs.getBoolean("estado_COMP"));
+                c.setTC(new TipoComprobante());
+                c.setC(new Contrato());
+                c.getTC().setDescripcion_TCO(rs.getString("descripcion_TCO"));
+                c.getC().setFechaInicio_CONT(rs.getString("fechaInicio_CONT"));
+                c.getC().setFechaFin_CONT(rs.getString("fechaFin_CONT"));
                 comprobantes.add(c);
             }
             rs.close();
@@ -75,8 +83,7 @@ public class DAOComprobante extends conexion{
         String sql = "UPDATE comprobante SET "
                 + "codigo_CONT=" + c.getCodigo_CONT()+ ", "
                 + "codigo_TCO=" + c.getCodigo_TCO()+ ", "
-                + "monto_COMP='" + c.getMonto_COMP()+ ", "
-                + "estado_COMP =" + (c.isEstado_COMP()== true ? "1" : "0") + " "
+                + "monto_COMP='" + c.getMonto_COMP()+ " "
                 + " WHERE codigo_COMP=" + c.getCodigo_COMP()+ ";";
         try {
             this.conectar(true);

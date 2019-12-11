@@ -1,7 +1,9 @@
 package dao;
 
 import accesodatos.conexion;
+import entidades.Proveedor;
 import entidades.Servicio;
+import entidades.TipoServicio;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +28,9 @@ public class DAOServicio extends conexion{
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT codigo_S, codigo_TS,codigo_PR, nombre_S, descripcion_S, precio_S, estado_S "
-                    + " FROM servicio S "
-                    + "ORDER BY nombre_S");
+            rs = this.ejecutarOrdenDatos("SELECT * FROM servicio S INNER JOIN tiposervicio TS "
+                    + " ON S.codigo_TS = TS.codigo_TS"
+                    + " INNER JOIN proveedor P ON P.codigo_PR = S.codigo_PR");
             servicios = new ArrayList<>();
             while (rs.next() == true) {
                 S = new Servicio();
@@ -39,6 +41,10 @@ public class DAOServicio extends conexion{
                 S.setDescripcion_S(rs.getString("descripcion_S"));
                 S.setPrecio_S(rs.getString("precio_S"));
                 S.setEstado(rs.getBoolean("estado_S"));
+                S.setTS(new TipoServicio());
+                S.setPR(new Proveedor());
+                S.getTS().setDescripcion_TS(rs.getString("descripcion_TS"));
+                S.getPR().setRazonSocial_PR(rs.getString("razonSocial_PR"));
                 servicios.add(S);
             }
             rs.close();

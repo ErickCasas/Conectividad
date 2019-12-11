@@ -13,16 +13,22 @@
       
         <table>
             <tr>
-                <td>N°</td>
-                <td>Codigo Contrato</td>
-                <td>Codigo Tipo Comprobante</td>
-                <td>Monto</td>
-                <td>Estado</td>
+                <td>N° 1</td>
+                <td>Fecha Inicio Contrato |</td>
+                <td>Tipo Comprobante |</td>
+                <td>Monto |</td>
+                <td>Estado |</td>
                 <td>Opciones</td>
             </tr>
             <c:forEach items="${com}" var="comprobante"  varStatus="iteracion">
             <tr>
-                <td>${iteracion.index + 1}</td>   
+                <td>${iteracion.index + 1}</td> 
+                <td><c:out value="${comprobante.CONT.fechaInicio_CONT}"
+                       default="No se encontró"/></td>
+                <td><c:out value="${comprobante.CONT.fechaFin_CONT}"
+                       default="No se encontró"/></td>
+                <td><c:out value="${comprobante.TCO.descripcion_TCO}"
+                       default="No se encontró"/></td>
                 <td><c:out value="${comprobante.codigo_CONT}"
                        default="No se encontró"/></td>
                 <td><c:out value="${comprobante.codigo_TCO}"

@@ -10,8 +10,7 @@ public class DAOProveedor extends conexion{
 public void registrar(Proveedor PR) throws Exception {
         String sql = "INSERT INTO Proveedor( razonSocial_PR, nombre_PR, ruc_PR, direccion_PR, telefono_PR, estado_PR) "
                 + " VALUES ( '" + PR.getRazonSocial_PR()+ "', '" + PR.getNombre_PR()
-                + "', '" + PR.getRuc_PR()+ "', '" + PR.getDireccion_PR()+ "', '" + PR.getTelefono_PR()+ "', "  
-                + (PR.isEstado_PR()== true ? "1" : "0") + ")";
+                + "', '" + PR.getRuc_PR()+ "', '" + PR.getDireccion_PR()+ "', '" + PR.getTelefono_PR()+ "', 1)";
         try {
             this.conectar(true);
             this.ejecutarOrden(sql);
@@ -28,7 +27,7 @@ public void registrar(Proveedor PR) throws Exception {
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT razonSocial_PR, nombre_PR, ruc_PR, direccion_PR, telefono_PR, estado_PR "
+            rs = this.ejecutarOrdenDatos("SELECT codigo_PR,razonSocial_PR, nombre_PR, ruc_PR, direccion_PR, telefono_PR, estado_PR "
                     + " FROM Proveedor PR "
                     + "ORDER BY nombre_PR");
             Proveedor = new ArrayList<>();
@@ -36,6 +35,7 @@ public void registrar(Proveedor PR) throws Exception {
                 
                 PR = new Proveedor();
                 
+                PR.setCodigo_PR(rs.getInt("codigo_PR"));  
                 PR.setRazonSocial_PR(rs.getString("razonSocial_PR"));           
                 PR.setNombre_PR(rs.getString("nombre_PR"));
                 PR.setRuc_PR(rs.getString("ruc_PR"));

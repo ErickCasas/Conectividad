@@ -6,6 +6,24 @@ public class Comprobante{
     private int codigo_TCO;
     private double monto_COMP;
     private Boolean estado_COMP;
+    private Contrato C;
+    private TipoComprobante TC;
+
+    public Contrato getC() {
+        return C;
+    }
+
+    public void setC(Contrato C) {
+        this.C = C;
+    }
+
+    public TipoComprobante getTC() {
+        return TC;
+    }
+
+    public void setTC(TipoComprobante TC) {
+        this.TC = TC;
+    }
 
     public int getCodigo_COMP() {
         return codigo_COMP;
