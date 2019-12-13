@@ -2,7 +2,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="en">
-
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -438,7 +437,7 @@
                                                      </button> </a
                                              </td>
                                              
-                                             <td> <a href="TipoUsuario?accion=crear">  <button class="mb-2 mr-2 btn btn-warning">BUSCAR USUARIO
+                                             <td> <a href="TipoUsuario?accion=buscar">  <button class="mb-2 mr-2 btn btn-warning">BUSCAR USUARIO
                                                      </button> </a
                                              </td>
                                               </div> 

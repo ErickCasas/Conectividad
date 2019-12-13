@@ -131,6 +131,7 @@ public class DAOCliente extends conexion{
                 c.setCodigo_TC(rs.getInt("nroDocumento_C"));
                 c.setNombre_C(rs.getString("nombre_C"));
                 c.setApellido_C(rs.getString("apellido_C"));
+                c.setEstado_C(rs.getBoolean("estado_C"));
                 clientes.add(c);
                 
             }

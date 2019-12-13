@@ -1,13 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Servlets;
 
+import dao.DAOCliente;
 import java.io.IOException;
 import dao.DAOContrato;
+import dao.DAOServicio;
+import entidades.Cliente;
 import entidades.Contrato;
+import entidades.Servicio;
 import java.util.List;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,9 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "SrvContrato", urlPatterns = {"/contrato"})
+@WebServlet(name = "SrvContrato", urlPatterns = {"/Contrato"})
 public class SrvContrato extends HttpServlet {
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String accion = request.getParameter("accion");
@@ -99,14 +97,22 @@ public class SrvContrato extends HttpServlet {
                     forward(request, response);
         } catch(Exception e){
             System.out.println("Error" + e.getMessage());
-            request.setAttribute("Error", "No se pudo listar las clientes");
+            request.setAttribute("Error", "No se pudo listar los contratos");
         }
     }
 
     private void presentarFormulario(HttpServletRequest request, HttpServletResponse response) {
+        DAOCliente dao = new DAOCliente();
+        DAOServicio daoS = new DAOServicio();
+        List<Cliente> lista;
+        List<Servicio> listaS;
         try {
+            lista = dao.listar();
+            listaS = daoS.listar();
+            request.setAttribute("cli", lista);
+            request.setAttribute("ser", listaS);
             this.getServletConfig().getServletContext().
-                    getRequestDispatcher("/WEB-INF/paginas/clientenuevo.jsp").
+                    getRequestDispatcher("/WEB-INF/paginas/contratonuevo.jsp").
                     forward(request, response);
         } catch(Exception e){
             request.setAttribute("Error", "No se pudo mostrar el formulario");
@@ -139,7 +145,7 @@ public class SrvContrato extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             co.setCodigo_C(id);
             dao.modificar(co);
-            response.sendRedirect("contrato?accion=listar");
+            response.sendRedirect("Contrato?accion=listar");
         } catch (Exception e) {
             request.setAttribute("msje", "no se pudo modificar");
             request.setAttribute("contrato", co);
@@ -155,7 +161,7 @@ public class SrvContrato extends HttpServlet {
         dao = new DAOContrato();
         try {
             dao.registrar(co);
-            response.sendRedirect("contrato?accion=listar");
+            response.sendRedirect("Contrato?accion=listar");
         }catch(Exception e){
             request.setAttribute("msje", "No se pudo registrar.");
             request.setAttribute("contrato", co);
@@ -170,7 +176,7 @@ public class SrvContrato extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             dao = new DAOContrato();
             dao.eliminar(id);
-            response.sendRedirect("contrato?accion=listar");
+            response.sendRedirect("Contrato?accion=listar");
         } catch (Exception e) {
             request.setAttribute("msje", "no se pudo Eliminar");
             this.presentarFormulario(request, response);
@@ -209,11 +215,11 @@ public class SrvContrato extends HttpServlet {
 
     private Contrato recuperarContrato(HttpServletRequest request) {
         Contrato co = new Contrato();
-        co.setCodigo_C(Integer.parseInt(request.getParameter("cboCodigoCliente")));
-        co.setCodigo_S(Integer.parseInt(request.getParameter("cboCodigoServicio")));
+        co.setCodigo_C(Integer.parseInt(request.getParameter("cboCliente")));
+        co.setCodigo_S(Integer.parseInt(request.getParameter("cboServicio")));
         co.setFechaInicio_CONT(request.getParameter("txtFechaInicio"));
         co.setFechaFin_CONT(request.getParameter("txtFechaFin"));
-        co.setTipoContrato_CONT(request.getParameter("cboTipoContrato"));
+        co.setTipoContrato_CONT(request.getParameter("txtTipoContrato"));
         if(request.getParameter("chkEstado")!= null){
             co.setEstado_CONT(true);
         }else{

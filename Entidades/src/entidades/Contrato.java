@@ -8,7 +8,25 @@ public class Contrato{
     private String fechaFin_CONT;
     private String tipoContrato_CONT;
     private Boolean estado_CONT;
+    private Cliente C;
+    private Servicio S;
 
+    public Cliente getC() {
+        return C;
+    }
+
+    public void setC(Cliente C) {
+        this.C = C;
+    }
+
+    public Servicio getS() {
+        return S;
+    }
+
+    public void setS(Servicio S) {
+        this.S = S;
+    }
+    
     public int getCodigo_CONT() {
         return codigo_CONT;
     }

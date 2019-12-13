@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "srvProveedor", urlPatterns = {"/Proveedor"})
 public class srvProveedor extends HttpServlet {
-
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String accion = request.getParameter("accion");

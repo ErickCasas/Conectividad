@@ -510,10 +510,10 @@
                                             </div>
                                              
                                             
-                                              <div class="position-relative form-group"><label for="exampleAddress2" class="">DIRECCION</label><input name="txtApellido" value="${cliente.direccion_C}" id="exampleAddress2" placeholder="Ingrese Apellido" type="text" class="form-control">
+                                              <div class="position-relative form-group"><label for="exampleAddress2" class="">DIRECCION</label><input name="txtDireccion" value="${cliente.direccion_C}" id="exampleAddress2" placeholder="Ingrese Apellido" type="text" class="form-control">
                                             </div>
                                             
-                                              <div class="position-relative form-group"><label for="exampleAddress2" class="">TELEFONO</label><input name="txtApellido" value="${cliente.telefono_C}" id="exampleAddress2" placeholder="Ingrese Apellido" type="text" class="form-control">
+                                              <div class="position-relative form-group"><label for="exampleAddress2" class="">TELEFONO</label><input name="txtTelefono" value="${cliente.telefono_C}" id="exampleAddress2" placeholder="Ingrese Apellido" type="text" class="form-control">
                                             </div>
                                             
                                            </div>

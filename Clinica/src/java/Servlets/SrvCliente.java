@@ -3,7 +3,6 @@ package Servlets;
 import java.io.IOException;
 import dao.DAOCliente;
 import entidades.Cliente;
-
 import dao.DAOTipoCliente;
 import entidades.TipoCliente;
 import java.util.List;

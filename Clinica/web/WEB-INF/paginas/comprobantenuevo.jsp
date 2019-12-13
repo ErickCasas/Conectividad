@@ -23,8 +23,6 @@
                                         <option value="${tipocomprobante.codigo_TCO}">${tipocomprobante.descripcion_TCO}</option>
                                     </c:forEach>
                                 </select>
-            <div>Codigo Contrato        :  <input type="text" name="txtContrato" value="${comprobante.codigo_COMP}"></div>
-            <div>Codigo Tipo Comprobante: <input type="text" name="txtTipoComprobante" value="${comprobante.codigo_TCO}"></div>
             <div>Monto                  : <input type="text" name="txtMonto" value="${comprobante.monto_COMP}"></div>
       
             <div><input type="submit" name="btnRegistrar" value="Registrar"></div>

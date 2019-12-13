@@ -8,8 +8,8 @@
     </head>
     <body>
         <h1>LISTA DE COMPROBANTES</h1>
-        <a href="Comprobante?accion=crear">Nuevo Cliente</a>       
-        <a href="Comprobante?accion=crearBuscar">Buscar Cliente</a>
+        <a href="Comprobante?accion=crear">Nuevo Comprobante</a>       
+        <a href="Comprobante?accion=crearBuscar">Buscar Comprobante</a>
       
         <table>
             <tr>
@@ -28,10 +28,6 @@
                 <td><c:out value="${comprobante.CONT.fechaFin_CONT}"
                        default="No se encontró"/></td>
                 <td><c:out value="${comprobante.TCO.descripcion_TCO}"
-                       default="No se encontró"/></td>
-                <td><c:out value="${comprobante.codigo_CONT}"
-                       default="No se encontró"/></td>
-                <td><c:out value="${comprobante.codigo_TCO}"
                        default="No se encontró"/></td>
                 <td><c:out value="${comprobante.monto_TCC}"
                        default="No se encontró"/></td>

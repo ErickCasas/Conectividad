@@ -528,7 +528,7 @@
                                                                default="No se encontró"/></td>
                                                         <td><c:out value="${cliente.direccion_C}"
                                                                default="No se encontró"/></td>
-                                                         <td> <a  href="cliente?accion=editar&id=${cliente.codigo_C}" ><button class="mb-2 mr-2 btn btn-warning">editar
+                                                        <td> <a  href="cliente?accion=editar&id=${cliente.codigo_C}" ><button class="mb-2 mr-2 btn btn-warning">editar
                                                             </button>  </a> <a  href="cliente?accion=eliminar&id=${cliente.codigo_C}" > <button class="mb-2 mr-2 btn btn-warning"> Estado
                                                        </button>  </a>
                                                          </td>

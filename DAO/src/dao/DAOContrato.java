@@ -1,15 +1,18 @@
 package dao;
+
 import accesodatos.conexion;
 import entidades.Contrato;
+import entidades.Cliente;
+import entidades.Servicio;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DAOContrato extends conexion{
     public void registrar(Contrato c) throws Exception {
-        String sql = "INSERT INTO contrato( codigo_CONT, codigo_C, codigo_S, fechaInicio_CONT, fechaFin_CONT, tipoContrato_CONT, estado_CONT) "
+        String sql = "INSERT INTO contrato( codigo_C, codigo_S, fechaInicio_CONT, fechaFin_CONT, tipoContrato_CONT, estado_CONT) "
                 + " VALUES ( " + c.getCodigo_C()+ ", " + c.getCodigo_S()
-                + ", '" + c.getFechaInicio_CONT()+ "', '" + c.getFechaFin_CONT()+ "','" + c.getTipoContrato_CONT()+ "', "  
+                + ", '" + c.getFechaInicio_CONT()+ "', '" + c.getFechaFin_CONT()+ "', '" + c.getTipoContrato_CONT()+ "', "  
                 + (c.isEstado_CONT()== true ? "1" : "0") + ")";
         try {
             this.conectar(true);
@@ -27,9 +30,9 @@ public class DAOContrato extends conexion{
         ResultSet rs = null;
         try {
             this.conectar(false);
-            rs = this.ejecutarOrdenDatos("SELECT codigo_CONT, codigo_C, codigo_S, fechaInicio_CONT, fechaFin_CONT "
-                    + " FROM contrato C "
-                    + "ORDER BY fechaInicio_CONT");
+            rs = this.ejecutarOrdenDatos("SELECT * FROM contrato C INNER JOIN cliente CL "
+                    + " ON C.codigo_C = CL.codigo_C"
+                    + " INNER JOIN servicio S ON S.codigo_S = C.codigo_S");
             contratos = new ArrayList<>();
             while (rs.next() == true) {
                 c = new Contrato();
@@ -40,6 +43,10 @@ public class DAOContrato extends conexion{
                 c.setFechaFin_CONT(rs.getString("fechaFin_CONT"));
                 c.setTipoContrato_CONT(rs.getString("tipoContrato_CONT"));
                 c.setEstado_CONT(rs.getBoolean("estado_CONT"));
+                c.setC(new Cliente());
+                c.setS(new Servicio());
+                c.getC().setNombre_C(rs.getString("nombre_C"));
+                c.getS().setNombre_S(rs.getString("nombre_S"));
                 contratos.add(c);
             }
             rs.close();
@@ -127,8 +134,8 @@ public class DAOContrato extends conexion{
                 c.setCodigo_S(rs.getInt("codigo_S"));
                 c.setFechaInicio_CONT(rs.getString("fechaInicio_CONT"));
                 c.setFechaFin_CONT(rs.getString("fechaFin_CONT"));
-                contratos.add(c);
-                
+                c.setEstado_CONT(rs.getBoolean("estado_CONT"));
+                contratos.add(c);               
             }
             rs.close();
             this.cerrar(true);
